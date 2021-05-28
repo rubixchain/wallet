@@ -10,13 +10,13 @@
             <button class="bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
               <span class="ml-4 flex items-start flex-col leading-none">
                 <span class="text-xs text-gray-500 mb-1">Proof Credits</span>
-                <span class="title-font font-medium">{{dashboardData.contactsCount}}</span>
+                <span class="title-font font-medium">{{dashboardData.proofCredits}}</span>
               </span>
             </button>
             <button @click="$router.push({name:'Wallet'})" class="bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
               <span class="ml-4 flex items-start flex-col leading-none">
                 <span class="text-xs text-gray-500 mb-1">Balance</span>
-                <span class="title-font font-medium">{{dashboardData.balance}} RBX</span>
+                <span class="title-font font-medium">RBX {{dashboardData.balance}}</span>
               </span>
             </button>
             <button @click="$router.push({name:'Transactions'})" class="bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
@@ -33,7 +33,7 @@
           <div class="flex flex-wrap w-full">
             <div class="lg:w-1/2 md:w-1/2 md:pr-10 md:py-6">
 
-              <div class="flex relative pb-12">
+              <!-- <div class="flex relative pb-12">
                 <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
                   <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
                 </div>
@@ -46,9 +46,9 @@
                   <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">{{did}}</h2>
                   <p class="leading-relaxed">Could not complete Transaction</p>
                 </div>
-              </div>
+              </div> -->
 
-              <div class="flex relative">
+              <div v-for="t in txns" :key="t" class="flex relative">
                 <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
                   <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
@@ -56,8 +56,8 @@
                   </svg>
                 </div>
                 <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">{{did}}</h2>
-                  <p class="leading-relaxed">Transaction completed</p>
+                  <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">{{t.txn}}</h2>
+                  <p class="leading-relaxed">on {{t.Date}}</p>
                 </div>
               </div>
 
@@ -104,8 +104,8 @@ export default {
           "receiver":"",
           "tokenCount": 1,
           "comment":"",
-          "type":"",
-          "Quorum": this.quorum
+          "type": 2,
+          // "Quorum": this.quorum
         })
         .then((response) => {
 
@@ -116,7 +116,9 @@ export default {
       },
 
       transactions() {
-        axios.get('http://localhost:1898/getTxnByCount')
+        axios.post('http://localhost:1898/getTxnByCount', {
+          "txnCount": 5
+        })
         .then((response) => {
           this.txns = response.data.data.response;
         })

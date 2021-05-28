@@ -12,11 +12,11 @@
       <span class="ml-3 text-xl xl:block lg:hidden">RubiX</span>
     </a>
     <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-      <!-- <button @click="$router.push({name:'Wallet'})" class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"> ..{{did}}
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <button @click="syncCall" class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"> {{sync}}
+        <!-- <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button> -->
+        </svg> -->
+      </button>
     </div>
   </div>
 </header>
@@ -32,10 +32,22 @@ export default {
     },
     data() {
         return {
-          did: ""
+          did: "",
+          sync: "sync"
         }
     },
     methods: {
+
+      syncCall() {
+      axios.get('http://localhost:1898/sync')
+      .then((response) => {
+      })
+      .catch(function (error) {
+        this.sync = "try again"
+        console.log(error);
+      });
+     },
+
      check() {
       axios.get('http://localhost:1898/check')
       .then((response) => {

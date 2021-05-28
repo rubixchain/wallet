@@ -1,3 +1,10 @@
 module.exports = {
-    publicPath: '/'
+    publicPath: '/',
+    pluginOptions: {
+        electronBuilder: {
+            builderOptions: {
+                productName: "RubiX Wallet",
+            },
+        },
+    },
 };
