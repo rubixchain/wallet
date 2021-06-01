@@ -14,6 +14,11 @@ import store from './store'
 
 import '@/assets/css/tailwind.css'
 
+//  mainWindow.on('closed', function () {
+//     kill(child.pid);
+//     mainWindow = null;
+//     app.quit();
+//   })
 
 Vue.config.productionTip = true
 
@@ -38,6 +43,11 @@ const router = new Router({
   mode: 'hash',
   routes
 })
+
+// const jarPath = __dirname + '/extraResources/rubix_api.jar';
+// const child = require('child_process').spawn(
+//   'java', ['-jar', jarPath, '']
+// );
 
 new Vue({
   render: h => h(App),
