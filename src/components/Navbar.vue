@@ -6,6 +6,13 @@
       <a class="mr-5 hover:text-white">Second Link</a>
       <a class="mr-5 hover:text-white">Third Link</a>
       <a class="hover:text-white">Fourth Link</a> -->
+      <div class="px-6">
+        <button @click="changeTheme" class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"> {{theme}}
+        <!-- <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg> -->
+      </button>
+      </div>
     </nav>
     <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
       <img width="100" height="100" src="../assets/logo.png" alt="RubiX">
@@ -33,10 +40,15 @@ export default {
     data() {
         return {
           did: "",
-          sync: "sync"
+          sync: "sync",
+          theme: "Light"
         }
     },
     methods: {
+
+      changeTheme () {
+
+      },
 
       syncCall() {
       axios.get('http://localhost:1898/sync')

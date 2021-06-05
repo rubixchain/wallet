@@ -1,6 +1,6 @@
 <template>
-    <div id="Explorer">
-
+    <div id="Explorer" class="bg-white">
+        <iframe src="http://explorer.rubix.network/" width="100%" height="650"/>
     </div>
 </template>
 
@@ -16,8 +16,8 @@ export default {
     methods: {
 
     },
-    beforeMount(){
-    
- }
+    mounted() {
+        // $("#Explorer").load("https://explorer.rubix.network/app/home");
+    }
 }
 </script>

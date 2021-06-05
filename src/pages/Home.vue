@@ -31,7 +31,7 @@
       <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-10 mx-auto flex flex-wrap">
           <div class="flex flex-wrap w-full">
-            <div class="lg:w-1/2 md:w-1/2 md:pr-10 md:py-6">
+            <div class="lg:w-3/5 md:w-3/5 md:pr-10 md:py-6">
 
               <!-- <div class="flex relative pb-12">
                 <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
@@ -43,7 +43,7 @@
                   </svg>
                 </div>
                 <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">{{did}}</h2>
+                  <h2 class="font-medium title-font text-l text-white mb-1 tracking-wider">{{did}}</h2>
                   <p class="leading-relaxed">Could not complete Transaction</p>
                 </div>
               </div> -->
@@ -56,24 +56,25 @@
                   </svg>
                 </div>
                 <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">{{t.txn}}</h2>
+                  <h2 class="font-medium title-font text-l text-white mb-1 tracking-wider">{{t.txn}}</h2>
                   <p class="leading-relaxed">on {{t.Date}}</p>
                 </div>
               </div>
 
             </div>
-            <div class="lg:w-1/2 md:w-1/2 bg-gray-800 bg-opacity-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+            <div class="lg:w-2/5 md:w-2/5 bg-gray-800 bg-opacity-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
               <h2 class="text-white text-lg font-medium title-font mb-5">New Transaction</h2>
               <div class="relative mb-4">
-                <label for="full-name" class="leading-7 text-sm text-gray-400">Reciever DID</label>
+                <label for="full-name" class="leading-7 text-l text-gray-400">Reciever DID</label>
                 <input type="text" id="full-name" name="full-name" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <div class="relative mb-4">
-                <label for="email" class="leading-7 text-sm text-gray-400">Amount</label>
-                <input type="email" id="email" name="email" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <label for="email" class="leading-7 text-l text-gray-400">Amount</label><br>
+                <span class="p-6 title-font font-medium">RBX</span>
+                <input type="email" id="email" name="email" class="w-1/3 bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <div class="relative mb-4">
-                <label for="email" class="leading-7 text-sm text-gray-400">Comments</label>
+                <label for="email" class="leading-7 text-l text-gray-400">Comments</label>
                 <input type="email" id="email" name="email" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <button @click="initiateTransaction" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Initiate Transaction</button>
