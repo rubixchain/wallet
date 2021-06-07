@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-400 bg-gray-900 body-font leading-normal tracking-normal" id="main-body">
+  <div class="dark:text-gray-400 dark:bg-gray-900 body-font leading-normal tracking-normal" id="main-body">
     <div class="flex flex-wrap">
 
       <Sidebar />
