@@ -45,7 +45,7 @@
                     <span class="dark:text-indigo-400 tracking-widest font-medium title-font">Proof Credits</span>
                     <span class="px-3 title-font font-medium dark:text-white">{{dashboardData.proofCredits}}</span>
                     <div v-if="dashboardData.proofCredits>10" class="px-6">
-                    <button @click="mine" class="flex mx-auto dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-white dark:hover:bg-indigo-600 rounded text-sm">Mine Token</button>
+                    <button @click="mine" class="flex mx-auto dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-300 dark:hover:bg-indigo-600 rounded text-sm">Mine Token</button>
                     </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     </div> -->
                 </div>
                 </div>
-                <button @click="$router.push({name:'DashboardHome'})" class="flex mx-auto mt-16 dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-white dark:hover:bg-indigo-600 rounded text-lg">Go Dashboard</button>
+                <button @click="$router.push({name:'DashboardHome'})" class="flex mx-auto mt-16 dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-300 dark:hover:bg-indigo-600 rounded text-lg">Go Dashboard</button>
             </div>
             </section>
     </div>

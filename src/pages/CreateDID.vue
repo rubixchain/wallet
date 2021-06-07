@@ -19,7 +19,7 @@
         <label for="email" class="leading-7 text-sm dark:text-gray-400">DID Image</label>
         <input @change="onFileChanged" type="file" id="file" name="file" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
-      <button @click="create" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-3 px-6 focus:outline-none hover:bg-white dark:hover:bg-indigo-600 rounded text-lg">Create</button>
+      <button @click="create" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-3 px-6 focus:outline-none hover:bg-red-300 dark:hover:bg-indigo-600 rounded text-lg">Create</button>
     </div>
   </div>
 </div>
