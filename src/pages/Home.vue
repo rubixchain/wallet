@@ -3,7 +3,7 @@
       <section class="dark:text-gray-400 dark:bg-gray-900 body-font">
         <div class="container px-5 py-5 mx-auto flex items-center md:flex-row flex-col">
           <div class="flex flex-col md:pr-10 md:mb-0 mb-6 pr-0 w-full md:w-auto md:text-left text-center">
-            <h2 class="text-xs dark:text-indigo-400 tracking-widest font-medium title-font mb-1">Nidhin</h2>
+            <h2 class="text-xs dark:text-indigo-400 tracking-widest font-medium title-font mb-1">{{dashboardData.nickname}}</h2>
             <h1 class="md:text-xl text-l font-medium title-font dark:text-white">{{dashboardData.did}}</h1>
           </div>
           <div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
