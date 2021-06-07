@@ -9,19 +9,19 @@
           <div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
             <button class="bg-red-200 dark:bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-red-700 dark:hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
               <span class="ml-4 flex items-start flex-col leading-none">
-                <span class="text-xs text-blue-500 dark:text-gray-500 mb-1">Proof Credits</span>
+                <span class="text-xs text-blue-700 dark:text-gray-500 mb-1">Proof Credits</span>
                 <span class="title-font font-medium">{{dashboardData.proofCredits}}</span>
               </span>
             </button>
             <button @click="$router.push({name:'Wallet'})" class="bg-red-200 dark:bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-red-700 dark:hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
               <span class="ml-4 flex items-start flex-col leading-none">
-                <span class="text-xs text-blue-500 dark:text-gray-500 mb-1">Balance</span>
+                <span class="text-xs text-blue-700 dark:text-gray-500 mb-1">Balance</span>
                 <span class="title-font font-medium">RBX {{dashboardData.balance}}</span>
               </span>
             </button>
             <button @click="$router.push({name:'Transactions'})" class="bg-red-200 dark:bg-gray-800 inline-flex py-3 px-5 rounded-lg items-center hover:bg-red-700 dark:hover:bg-gray-700 hover:bg-opacity-50 focus:outline-none">
               <span class="ml-4 flex items-start flex-col leading-none">
-                <span class="text-xs text-blue-500 dark:text-gray-500 mb-1">Transactions</span>
+                <span class="text-xs text-blue-700 dark:text-gray-500 mb-1">Transactions</span>
                 <span class="title-font font-medium">{{dashboardData.totalTxn}}</span>
               </span>
             </button>

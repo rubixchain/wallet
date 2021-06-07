@@ -48,7 +48,7 @@
             </li>
             <li class="px-5">
               <div class="flex flex-row items-center h-8">
-                <div class="text-l font-light tracking-wide text-blue-500 dark:text-gray-500">Network</div>
+                <div class="text-l font-light tracking-wide text-blue-700 dark:text-gray-500">Network</div>
               </div>
             </li>
             <li>
