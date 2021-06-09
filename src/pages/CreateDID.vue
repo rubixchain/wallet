@@ -12,10 +12,6 @@
         <input v-model="passphrase" type="text" id="passphrase" name="passphrase" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative sm:mb-0 flex-grow w-full">
-        <label for="nickname" class="leading-7 text-sm dark:text-gray-400">Nickname</label>
-        <input v-model="nickname" type="text" id="nickname" name="nickname" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-      </div>
-      <div class="relative sm:mb-0 flex-grow w-full">
         <label for="email" class="leading-7 text-sm dark:text-gray-400">DID Image</label>
         <input @change="onFileChanged" type="file" id="file" name="file" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
@@ -34,7 +30,6 @@ export default {
     data() {
         return {
           passphrase: "",
-          nickname: "",
           selectedFile: null
         }
     },
@@ -45,7 +40,6 @@ export default {
       create() {
         const formData = new FormData()
         formData.append('data', this.passphrase)
-        formData.append('nickname', this.nickname)
         formData.append('image', this.selectedFile)
         axios.post('http://localhost:1898/create', formData,{
         headers: {

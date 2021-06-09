@@ -62,7 +62,7 @@
             <h2 class="mb-1 text-l">comment: {{t.comment}}</h2>
             <!-- <h2 class="font-medium title-font dark:text-white mb-1 text-l">quorum members: {{t.quorumList}}</h2> -->
           </div>
-          <p class="leading-relaxed"> {{t.tokens.length}} tokens on {{t.Date}} in {{t.totalTime}} sec</p>
+          <p class="leading-relaxed"> {{t.tokens.length}} tokens on {{t.Date}} in {{t.totalTime}} milli sec</p>
         </div>
       </div>
     </div>

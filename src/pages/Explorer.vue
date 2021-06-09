@@ -1,6 +1,6 @@
 <template>
     <div id="Explorer" class="bg-white">
-        <iframe src="http://explorer.rubix.network/" width="100%" height="650"/>
+        <iframe src="http://rubix.network/" width="100%" height="650"/>
     </div>
 </template>
 
