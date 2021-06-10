@@ -4,6 +4,7 @@ import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const { exec } = require("child_process");
 import path from 'path'
 
 const os = require('os')
@@ -13,6 +14,29 @@ var kill  = require('tree-kill');
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
+
+exec("ipfs daemon", (error, data, getter) => {
+	if(error){
+		console.log("error",error.message);
+		return;
+	}
+	if(getter){
+		console.log("data",data);
+		return;
+	}
+	console.log("data",data);
+
+});
+
+var jarPath = __dirname + '/extraResources/rubix_api.jar';
+console.log(jarPath)
+var child = require('child_process').spawn(
+ 'java', ['-jar', jarPath, '']
+);
+
+child.stdout.on('data', (d) => {
+  console.log(d.toString())
+})
 
 async function createWindow() {
   // Create the browser window.
@@ -41,16 +65,6 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 }
-
-var jarPath = __dirname + '/extraResources/rubix_api.jar';
-console.log(jarPath)
-var child = require('child_process').spawn(
- 'java', ['-jar', jarPath, '']
-);
-
-child.stdout.on('data', (d) => {
-  console.log(d.toString())
-})
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     kill(child.pid);

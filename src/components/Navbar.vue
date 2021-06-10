@@ -53,7 +53,7 @@ export default {
         }
       })
       .catch(function (error) {
-        self.$router.replace({path: '/auth'})
+        // self.$router.replace({path: '/auth'})
       });
      }
     },
