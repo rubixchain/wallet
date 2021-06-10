@@ -6,6 +6,9 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 import path from 'path'
 
+const os = require('os')
+var kill  = require('tree-kill');
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
@@ -23,6 +26,7 @@ async function createWindow() {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: true,
+      defaultEncoding: 'UTF-8',
       contextIsolation: false
     }
   })
@@ -38,13 +42,20 @@ async function createWindow() {
   }
 }
 
+var jarPath = __dirname + '/extraResources/rubix_api.jar';
+console.log(jarPath)
+var child = require('child_process').spawn(
+ 'java', ['-jar', jarPath, '']
+);
+
+child.stdout.on('data', (d) => {
+  console.log(d.toString())
+})
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+    kill(child.pid);
     app.quit()
-  }
+
 })
 
 app.on('activate', () => {
@@ -52,6 +63,8 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+
+app.on('window-all-closed', () => { app.quit() })
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

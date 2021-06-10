@@ -45,14 +45,15 @@ export default {
      },
 
      check() {
+       let self = this
       axios.get('http://localhost:1898/check')
       .then((response) => {
         if(response.data.data.response != "User is Registered") {
-          this.$router.push({path: '/auth'})
+          self.$router.push({path: '/auth'})
         }
       })
       .catch(function (error) {
-        this.$router.push({path: '/auth'})
+        self.$router.replace({path: '/auth'})
       });
      }
     },

@@ -47,7 +47,7 @@
 </section>
 <section class="dark:text-gray-400 dark:bg-gray-900 body-font">
   <div class="container px-5 mx-auto flex flex-wrap">
-    <div v-for="(t, index) in txns" :key="(t, index)" class="flex relative pb-5 sm:items-center md:w-2/3 mx-auto">
+    <div v-for="(t, index) in txns" :key="(t, index)" class="flex relative pb-8 sm:items-center md:w-2/3 mx-auto">
       <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
         <div class="h-full w-1 bg-red-200 dark:bg-gray-800 pointer-events-none"></div>
       </div>
@@ -59,7 +59,7 @@
             <!-- <h2 class="mb-1 text-l">amount: </h2> -->
             <h2 v-if="openTab!=2" class="mb-1 text-l">sender: {{t.senderDID}}</h2>
             <h2 v-if="openTab!=3" class="mb-1 text-l">receiver: {{t.receiverDID}}</h2>
-            <h2 class="mb-1 text-l">comment: {{t.comment}}</h2>
+            <!-- <h2 class="mb-1 text-l">comment: {{t.comment}}</h2> -->
             <!-- <h2 class="font-medium title-font dark:text-white mb-1 text-l">quorum members: {{t.quorumList}}</h2> -->
           </div>
           <p class="leading-relaxed"> {{t.tokens.length}} <span v-if="t.tokens.length==1" >token</span><span v-if="t.tokens.length!=1">tokens</span> on {{t.Date}} in {{t.totalTime}} milli sec</p>

@@ -31,7 +31,7 @@
       <section class="dark:text-gray-400 dark:bg-gray-900 body-font">
         <div class="container px-0 py-10 mx-auto flex flex-wrap">
           <div class="flex flex-wrap w-full">
-            <div class="lg:w-1/2 md:w-1/2 md:pr-10 md:py-6">
+            <div class="lg:w-2/3 md:w-2/3 md:pr-10 md:py-4">
 
               <div v-for="t in txns" :key="t" class="flex relative">
                 <div class="flex-shrink-0 w-10 h-10 rounded-full dark:tbg-indigo-500 bg-red-500 inline-flex items-center justify-center dark:text-white relative z-10">
@@ -47,7 +47,7 @@
               </div>
 
             </div>
-            <div class="lg:w-1/2 md:w-1/2 bg-red-200 dark:bg-gray-800 bg-opacity-50 rounded-lg p-3 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+            <div class="lg:w-1/3 md:w-1/3 bg-red-200 dark:bg-gray-800 bg-opacity-50 rounded-lg p-2 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
               <h2 class="dark:text-white text-lg font-medium title-font mb-5">New Transaction</h2>
               <!-- <div class="relative mb-4">
                 <input type="radio" id="Nickname" value="Nickname" v-model="picked">
@@ -58,16 +58,16 @@
               <div class="relative mb-4">
                 <!-- <label for="full-name" class="leading-7 text-l dark:text-gray-400">{{picked}}</label> -->
                 <label for="full-name" class="leading-7 text-l dark:text-gray-400">Reciver DID / Nickname</label>
-                <input spellcheck="false" type="text" id="full-name" name="full-name" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <textarea v-model="newTxn.receiver" spellcheck="false" type="text" id="full-name" name="full-name" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
               </div>
               <div class="relative mb-4">
                 <label for="email" class="leading-7 text-l dark:text-gray-400">Amount</label><br>
                 <span class="pr-2 title-font font-medium">RBX</span>
-                <input type="email" id="email" name="email" class="w-1/3 bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <input v-model="newTxn.amount" type="email" id="email" name="email" class="w-1/3 bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <div class="relative mb-4">
                 <label for="email" class="leading-7 text-l dark:text-gray-400">Comments</label>
-                <select v-model="selected" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select v-model="newTxn.comment" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                   <option disabled value="">Please select one</option>
                   <option>Education</option>
                   <option>Token Transfer</option>
@@ -94,7 +94,14 @@ export default {
             quorum: [],
             txns: [],
             did:"",
-            picked: ""
+            picked: "",
+
+            newTxn: {
+              receiver: "",
+              tokenCount: 1,
+              comment: "",
+              type: 2
+            }
         }
     },
     methods: {
@@ -102,11 +109,13 @@ export default {
 
 
       initiateTransaction() {
+        console.log("new trxxnnnnn")
+        console.log(this.newTxn)
         axios.post('http://localhost:1898/initiateTransaction', {
-          "receiver":"",
-          "tokenCount": 1,
-          "comment":"",
-          "type": 2,
+          "receiver": this.newTxn.receiver,
+          "tokenCount": this.newTxn.tokenCount,
+          "comment": this.newTxn.comment,
+          "type": this.newTxn.type,
           // "Quorum": this.quorum
         })
         .then((response) => {

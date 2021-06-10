@@ -60,7 +60,23 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+      },
+      check() {
+       let self = this
+      axios.get('http://localhost:1898/check')
+      .then((response) => {
+        if(response.data.data.response == "User is Registered") {
+          self.$router.push({path: '/home'})
+        }
+      })
+      .catch(function (error) {
+        // self.$router.replace({path: '/auth'})
+      });
+     }
+    },
+
+    beforeMount() {
+      this.check()
     }
 }
 </script>
