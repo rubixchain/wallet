@@ -54,7 +54,7 @@
       <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center dark:tbg-indigo-500 bg-red-500 dark:text-white relative z-10 title-font font-medium text-l">{{index+1}}</div>
       <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
         <div class="flex-grow sm:pl-3 mt-6 sm:mt-0">
-          <h2 class="font-medium title-font dark:text-white mb-1 text-xl">{{t.txn}}</h2>
+          <h2 v-on:click="toggleModal(t.txn)" class="font-medium title-font dark:text-white mb-1 text-xl">{{t.txn}}</h2>
           <div > 
             <!-- <h2 class="mb-1 text-l">amount: </h2> -->
             <h2 v-if="openTab!=2" class="mb-1 text-l">sender: {{t.senderDID}}</h2>
@@ -68,6 +68,52 @@
     </div>
   </div>
 </section>
+<div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <!--header-->
+          <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+            <h3 class="text-3xl font-semibold">
+              Transaction Details
+            </h3>
+            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
+              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                ×
+              </span>
+            </button>
+          </div>
+          <!--body-->
+          <div class="relative p-6 flex-auto">
+            <h2 class="mb-1 text-l">senderDID: {{details.senderDID}}</h2>
+            <h2 class="mb-1 text-l">role: {{details.role}}</h2>
+            <h2 class="mb-1 text-l">totalTime: {{details.totalTime}} milli seconds</h2>
+
+            <h2 class="mb-1 text-l">Quorum Members</h2>
+
+            <div v-for="quorum in details.quorumList" :key="quorum">
+              <h2 class="mb-1 text-sm">{{quorum}}</h2>
+            </div>
+            <h2 class="mb-1 text-l">Tokens</h2>
+            <div v-for="tokens in details.tokens" :key="tokens">
+              <h2 class="mb-1 text-sm">{{tokens}}</h2>
+            </div>
+
+
+            <h2 class="mb-1 text-l">comment: {{details.comment}}</h2>
+            <h2 class="mb-1 text-l">txn: {{details.txn}}</h2>
+            <h2 class="mb-1 text-l">receiverDID: {{details.receiverDID}}</h2>
+            <h2 class="mb-1 text-l">Date: {{details.Date}}</h2>
+          </div>
+          <!--footer-->
+          <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 </template>
 
@@ -78,12 +124,26 @@ export default {
     name: 'Transactions',
     data() {
         return {
+            showModal: false,
             openTab: 1,
             stats: {},
-            txns: []
+            txns: [],
+            details: {}
         }
     },
     methods: {
+      toggleModal: function(txn){
+      this.showModal = !this.showModal;
+      axios.post('http://localhost:1898/getTxnDetails',{
+        'transactionID': txn
+      })
+      .then((response) => {
+        this.details = response.data.data.response[0];
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
       toggleTabs: function(tabNumber){
       this.openTab = tabNumber
 
@@ -175,12 +235,3 @@ export default {
     }
 }
 </script>
-<style>
-    .modal {
-      transition: opacity 0.25s ease;
-    }
-    body.modal-active {
-      overflow-x: hidden;
-      overflow-y: visible !important;
-    }
-  </style>
