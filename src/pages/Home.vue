@@ -49,24 +49,25 @@
             </div>
             <div class="lg:w-1/2 md:w-1/2 bg-red-200 dark:bg-gray-800 bg-opacity-50 rounded-lg p-3 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
               <h2 class="dark:text-white text-lg font-medium title-font mb-5">New Transaction</h2>
-              <div class="relative mb-4">
+              <!-- <div class="relative mb-4">
                 <input type="radio" id="Nickname" value="Nickname" v-model="picked">
                 <label class="pr-2 leading-7 text-l dark:text-gray-400" for="Nickname"> Nickname</label>
                 <input type="radio" id="DID" value="DID" v-model="picked">
                 <label class="leading-7 text-l dark:text-gray-400" for="DID"> DID</label>
-              </div>
+              </div> -->
               <div class="relative mb-4">
-                <label for="full-name" class="leading-7 text-l dark:text-gray-400">{{picked}}</label>
+                <!-- <label for="full-name" class="leading-7 text-l dark:text-gray-400">{{picked}}</label> -->
+                <label for="full-name" class="leading-7 text-l dark:text-gray-400">Reciver DID / Nickname</label>
                 <input spellcheck="false" type="text" id="full-name" name="full-name" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <div class="relative mb-4">
-                <label for="email" class="leading-7 text-l dark:text-gray-400">Amount in </label>
+                <label for="email" class="leading-7 text-l dark:text-gray-400">Amount</label><br>
                 <span class="pr-2 title-font font-medium">RBX</span>
                 <input type="email" id="email" name="email" class="w-1/3 bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               <div class="relative mb-4">
-                <label for="email" class="p-2 leading-7 text-l dark:text-gray-400">Comments</label>
-                <select v-model="selected" class="w-2/3 bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <label for="email" class="leading-7 text-l dark:text-gray-400">Comments</label>
+                <select v-model="selected" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                   <option disabled value="">Please select one</option>
                   <option>Education</option>
                   <option>Token Transfer</option>

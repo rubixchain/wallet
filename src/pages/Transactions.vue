@@ -34,7 +34,7 @@
             <a v-on:click="toggleTabs(2)" class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-800 hover:dark:text-white tracking-wider" v-bind:class="{'bg-red-200 dark:bg-gray-800 border-red-500 dark:border-indigo-500 dark:text-white rounded-t': openTab === 2, '': openTab !== 2}">
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-              </svg>Send
+              </svg>Sent
             </a>
             <a v-on:click="toggleTabs(3)" class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-800 hover:dark:text-white tracking-wider" v-bind:class="{'bg-red-200 dark:bg-gray-800 border-red-500 dark:border-indigo-500 dark:text-white rounded-t': openTab === 3, '': openTab !== 3}">
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -57,12 +57,12 @@
           <h2 class="font-medium title-font dark:text-white mb-1 text-xl">{{t.txn}}</h2>
           <div > 
             <!-- <h2 class="mb-1 text-l">amount: </h2> -->
-            <h2 class="mb-1 text-l">sender: {{t.senderDID}}</h2>
-            <h2 class="mb-1 text-l">receiver: {{t.receiverDID}}</h2>
+            <h2 v-if="openTab!=2" class="mb-1 text-l">sender: {{t.senderDID}}</h2>
+            <h2 v-if="openTab!=3" class="mb-1 text-l">receiver: {{t.receiverDID}}</h2>
             <h2 class="mb-1 text-l">comment: {{t.comment}}</h2>
             <!-- <h2 class="font-medium title-font dark:text-white mb-1 text-l">quorum members: {{t.quorumList}}</h2> -->
           </div>
-          <p class="leading-relaxed"> {{t.tokens.length}} tokens on {{t.Date}} in {{t.totalTime}} milli sec</p>
+          <p class="leading-relaxed"> {{t.tokens.length}} <span v-if="t.tokens.length==1" >token</span><span v-if="t.tokens.length!=1">tokens</span> on {{t.Date}} in {{t.totalTime}} milli sec</p>
         </div>
       </div>
     </div>
@@ -175,3 +175,12 @@ export default {
     }
 }
 </script>
+<style>
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    body.modal-active {
+      overflow-x: hidden;
+      overflow-y: visible !important;
+    }
+  </style>

@@ -19,11 +19,12 @@
   <div class="container px-5 py-5 mx-auto">
     <h1 class="text-3xl font-medium title-font dark:text-white mb-12 text-center">Contacts in network</h1>
     <div class="flex flex-wrap -m-4">
-      <div v-for="(cntx, index) in contacts" :key="(cntx, index)" class="p-4 md:w-1/2 w-full">
+      <div v-for="cntx in contacts" :key="cntx" class="p-4 md:w-1/2 w-full">
         <div class=" bg-red-200 dark:bg-gray-800 bg-opacity-40 p-0 rounded">
           <a class="inline-flex items-center">
             <span class="flex-grow flex flex-col pl-4 py-2">
-              <span class="p-1 title-font font-medium dark:text-white">{{index+1}}. {{cntx.nickname}}
+              <span class="title-font font-medium dark:text-white text-sm">{{cntx.did}}</span>
+              <span class="p-1 title-font font-medium dark:text-white">{{cntx.nickname}}
                 
                 <button v-show="!cntx.edit && cntx.nickname==null" v-on:click="editContact(cntx)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
                   set nickname
@@ -52,11 +53,6 @@
               </span>
             </button>
           </div>
-          <a class="inline-flex items-center">
-            <span class="flex-grow flex flex-col pl-4 py-2">
-              <span class="title-font font-medium dark:text-white text-sm">{{cntx.did}}</span>
-            </span>
-          </a>
         </div>
       </div>
     </div>

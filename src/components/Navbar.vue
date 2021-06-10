@@ -12,11 +12,8 @@
       <span class="ml-3 text-xl xl:block lg:hidden">RubiX</span>
     </a>
     <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-      <button @click="syncCall" class="inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded text-base mt-4 md:mt-0"> {{sync}}
-        <!-- <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg> -->
-      </button>
+      <!-- <button @click="syncCall" class="inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded text-base mt-4 md:mt-0"> {{sync}}
+      </button> -->
     </div>
   </div>
 </header>
@@ -55,7 +52,7 @@ export default {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        this.$router.push({path: '/auth'})
       });
      }
     },

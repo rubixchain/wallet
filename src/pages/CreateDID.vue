@@ -61,9 +61,6 @@ export default {
           console.log(error);
         });
       }
-    },
-    beforeMount(){
-      this.create()
     }
 }
 </script>
