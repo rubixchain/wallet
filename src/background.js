@@ -39,12 +39,14 @@ child.stdout.on('data', (d) => {
 })
 
 async function createWindow() {
+  console.log("Static path")
+  console.log(__static)
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1410,
     height: 1000,
     title: "RubiX Wallet",
-    icon: path.join(__static, 'logo.png'),
+    icon: path.join(__static, 'favicon.png'),
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -65,11 +67,10 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 }
-// Quit when all windows are closed.
+
 app.on('window-all-closed', () => {
     kill(child.pid);
     app.quit()
-
 })
 
 app.on('activate', () => {
@@ -78,11 +79,6 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
 
-app.on('window-all-closed', () => { app.quit() })
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
