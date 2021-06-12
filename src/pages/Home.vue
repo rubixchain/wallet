@@ -67,12 +67,17 @@
               </div>
               <div class="relative mb-4">
                 <label for="email" class="leading-7 text-l dark:text-gray-400">Comments</label>
-                <select v-model="newTxn.comment" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <!-- <select v-model="newTxn.comment" class="w-full bg-white dark:bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                   <option disabled value="">Please select one</option>
                   <option>Education</option>
                   <option>Token Transfer</option>
                   <option>Ransome</option>
-                </select>
+                </select> -->
+                <vue-simple-suggest
+                  v-model="newTxn.comment"
+                  :list="simpleSuggestionList"
+                  :filter-by-query="false">
+                </vue-simple-suggest>
               </div>
               <button @click="initiateTransaction" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 dark:hover:bg-indigo-600 rounded text-lg">Initiate Transaction</button>
               <p class="text-xs mt-3">Transaction will take approx 1 min to complete.</p>
@@ -84,10 +89,15 @@
 </template>
 
 <script>
+import VueSimpleSuggest from 'vue-simple-suggest'
+import 'vue-simple-suggest/dist/styles.css'
 import axios from 'axios'
 
 export default {
     name: 'DashboardHome',
+    components: {
+      VueSimpleSuggest
+    },
     data() {
         return {
             dashboardData: {},
@@ -106,7 +116,13 @@ export default {
     },
     methods: {
 
-
+      simpleSuggestionList() {
+        return [
+          'Gift',
+          'Token Transfer',
+          'Education'
+        ]
+      },
 
       initiateTransaction() {
         console.log("new trxxnnnnn")
