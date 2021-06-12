@@ -29,6 +29,7 @@ exec("ipfs daemon", (error, data, getter) => {
 });
 
 var jarPath = __dirname + '/extraResources/rubix_api.jar';
+console.log("jarpath here")
 console.log(jarPath)
 var child = require('child_process').spawn(
  'java', ['-jar', jarPath, '']
@@ -46,7 +47,7 @@ async function createWindow() {
     width: 1410,
     height: 1000,
     title: "RubiX Wallet",
-    icon: path.join(__static, 'favicon.png'),
+    icon: path.join(__dirname, 'favicon.png'),
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

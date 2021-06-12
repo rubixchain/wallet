@@ -1,0 +1,21 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ELIFECYCLE",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "wallet@1.0.0",
+    "stage": "electron:build",
+    "script": "vue-cli-service electron:build \"--linux\" \"deb\" \"--win\" \"nsis\"",
+    "pkgname": "wallet",
+    "err": {
+      "name": "Error",
+      "message": "wallet@1.0.0 electron:build: `vue-cli-service electron:build \"--linux\" \"deb\" \"--win\" \"nsis\"`\nspawn ENOENT",
+      "code": "ELIFECYCLE",
+      "stack": "Error: wallet@1.0.0 electron:build: `vue-cli-service electron:build \"--linux\" \"deb\" \"--win\" \"nsis\"`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:92406:22)\n    at ChildProcess.emit (events.js:376:20)\n    at maybeClose (internal/child_process.js:1055:16)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:288:5)"
+    }
+  }
+}

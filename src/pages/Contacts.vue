@@ -26,7 +26,7 @@
               <span class="title-font font-medium dark:text-white text-sm">{{cntx.did}}</span>
               <span class="p-1 title-font font-medium dark:text-white">{{cntx.nickname}}
                 
-                <button v-show="!cntx.edit && cntx.nickname==null" v-on:click="editContact(cntx)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
+                <!-- <button v-show="!cntx.edit && cntx.nickname==null" v-on:click="editContact(cntx)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
                   set nickname
                 </button>
                 <button v-show="!cntx.edit" v-on:click="editContact(cntx)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
@@ -34,9 +34,9 @@
                 </button>
                 <button v-show="cntx.edit" v-on:click="saveContact(cntx)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
                   save
-                </button>
+                </button> -->
               </span>
-              <input v-model="newNick" v-show="cntx.edit" v-if="true" type="nickname" id="nickname" name="nickname" class="w-1/2 bg-opacity-20 bg-transparent ring-2 ring-indigo-900 rounded border border-gray-600 border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <!-- <input v-model="newNick" v-show="cntx.edit" v-if="true" type="nickname" id="nickname" name="nickname" class="w-1/2 bg-opacity-20 bg-transparent ring-2 ring-indigo-900 rounded border border-gray-600 border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> -->
             </span>
           </a>
             <div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
@@ -76,52 +76,6 @@ export default {
     },
     methods: {
 
-      editContact: function(person){
-            this._originalPerson = Object.assign({}, person);
-            person.edit = true;
-      },
-
-      saveContact: function(person){
-            Object.assign(person, this._originalPerson);
-
-            const formData = new FormData()
-            formData.append('did', person.did)
-            formData.append('nickname', this.newNick)
-            console.log("SSAAAAMMMMPLLEEE PERERRRRROOOOOINNN")
-            console.log(this.newNick)
-            axios.post('http://localhost:1898/addNickName', formData,{
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-            })
-            .then((response) => {
-              this.contact()
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
-        
-            person.edit = false;
-      },
-
-      setNickname() {
-        const formData = new FormData()
-        formData.append('did', this.passphrase)
-        formData.append('nickname', this.selectedFile)
-        axios.post('http://localhost:1898/addNickName', formData,{
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-        })
-        .then((response) => {
-          this.contact()
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-
       allContacts() {
         axios.get('http://localhost:1898/getContactsList')
         .then((response) => {
@@ -129,9 +83,8 @@ export default {
           contact.forEach(element => {
             element.edit = false;
             this.contacts.push(element);
-            
           });
-console.log(this.contacts)
+          console.log(this.contacts)
         })
         .catch(function (error) {
           console.log(error);

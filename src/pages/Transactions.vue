@@ -55,7 +55,18 @@
       <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
         <div class="flex-grow sm:pl-3 mt-6 sm:mt-0">
           <h2 v-on:click="toggleModal(t.txn)" class="font-medium title-font dark:text-white mb-1 text-xl">{{t.txn}}</h2>
-          <div > 
+          <span class="p-1 title-font font-medium dark:text-white">{{t.nickname}}
+                
+                <button v-show="!t.edit" v-on:click="editContact(t)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
+                  set nickname
+                </button>
+                <button v-show="t.edit" v-on:click="saveContact(t)" class="pl-2 text-sm inline-flex items-center bg-red-500 dark:bg-gray-800 border-0 py-0 px-2 focus:outline-none hover:bg-red-600 dark:hover:bg-gray-700 rounded mt-0 md:mt-0">
+                  save
+                </button>
+                <br>
+              <input v-model="newNick" v-show="t.edit" v-if="true" type="nickname" id="nickname" name="nickname" class="w-1/2 bg-opacity-20 bg-transparent ring-2 ring-indigo-900 rounded border border-gray-600 border-red-500 dark:border-indigo-500 text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </span>
+          <div>
             <!-- <h2 class="mb-1 text-l">amount: </h2> -->
             <h2 v-if="openTab!=2" class="mb-1 text-l">sender: {{t.senderDID}}</h2>
             <h2 v-if="openTab!=3" class="mb-1 text-l">receiver: {{t.receiverDID}}</h2>
@@ -88,9 +99,7 @@
             <h2 class="mb-1 text-l">senderDID: {{details.senderDID}}</h2>
             <h2 class="mb-1 text-l">role: {{details.role}}</h2>
             <h2 class="mb-1 text-l">totalTime: {{details.totalTime}} milli seconds</h2>
-
             <h2 class="mb-1 text-l">Quorum Members</h2>
-
             <div v-for="quorum in details.quorumList" :key="quorum">
               <h2 class="mb-1 text-sm">{{quorum}}</h2>
             </div>
@@ -98,8 +107,6 @@
             <div v-for="tokens in details.tokens" :key="tokens">
               <h2 class="mb-1 text-sm">{{tokens}}</h2>
             </div>
-
-
             <h2 class="mb-1 text-l">comment: {{details.comment}}</h2>
             <h2 class="mb-1 text-l">txn: {{details.txn}}</h2>
             <h2 class="mb-1 text-l">receiverDID: {{details.receiverDID}}</h2>
@@ -114,7 +121,7 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -123,88 +130,122 @@ import axios from 'axios'
 export default {
     name: 'Transactions',
     data() {
-        return {
-            showModal: false,
-            openTab: 1,
-            stats: {},
-            txns: [],
-            details: {}
-        }
-    },
-    methods: {
-      toggleModal: function(txn){
-      this.showModal = !this.showModal;
-      axios.post('http://localhost:1898/getTxnDetails',{
-        'transactionID': txn
-      })
-      .then((response) => {
-        this.details = response.data.data.response[0];
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    },
-      toggleTabs: function(tabNumber){
-      this.openTab = tabNumber
-
-      if(tabNumber==1) {
-
-        axios.post('http://localhost:1898/getTxnByDate', {
-          "sDate":"2021-05-07",
-          "eDate":"2021-05-07"
-        })
-        .then((response) => {
-          this.txns = response.data.data.response;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      } else if(tabNumber==2) {
-        this.txns = []
-        console.log("fetching sent transactions")
-
-        axios.post('http://localhost:1898/getTxnByCount', {
-          "txnCount": 100
-        })
-        .then((response) => {
-          const data = response.data.data.response;
-          data.forEach(element => {
-            if(element.role=="Sender"){
-              console.log(element)
-              
-              this.txns.push(element)
-            }
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      } else if(tabNumber==3) {
-        console.log("fetching Received transactions")
-        this.txns = []
-
-        axios.post('http://localhost:1898/getTxnByCount', {
-          "txnCount": 100
-        })
-        .then((response) => {
-          const data = response.data.data.response;
-          data.forEach(element => {
-            if(element.role!="Sender"){
-              
-              this.txns.join(element)
-            }
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
+      return {
+        showModal: false,
+        openTab: 1,
+        stats: {},
+        txns: [],
+        details: {},
+        payBox: false,
+        newNick: ""
       }
     },
-      dashboard() {
+    methods: {
 
+      editContact: function(person){
+        
+        this.txns.forEach(element => {
+          element.edit = false;
+          this.txns.push(element)
+        })
+        this._originalPerson = Object.assign({}, person);
+        person.edit = true;
+      },
+
+      saveContact: function(person){
+        Object.assign(person, this._originalPerson);
+        const formData = new FormData()
+        formData.append('did', person.did)
+        formData.append('nickname', this.newNick)
+        console.log(this.newNick)
+        axios.post('http://localhost:1898/addNickName', formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+        })
+        .then((response) => {
+          console.log("SAVED NICKNAME");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        person.edit = false;
+      },
+
+      toggleModal: function(txn){
+        this.showModal = !this.showModal;
+        axios.post('http://localhost:1898/getTxnDetails',{
+          'transactionID': txn
+        })
+        .then((response) => {
+          this.details = response.data.data.response[0];
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      toggleTabs: function(tabNumber){
+        this.openTab = tabNumber
+        if(tabNumber==1) {
+          this.txns = []
+          axios.post('http://localhost:1898/getTxnByDate', {
+            "sDate":"2021-06-01",
+            "eDate":"2021-06-12"
+          })
+          .then((response) => {
+            const data = response.data.data.response;
+            data.forEach(element => {
+              element.edit = false;
+              this.txns.push(element)
+            })
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        } else if(tabNumber==2) {
+          this.txns = []
+          console.log("fetching sent transactions")
+          axios.post('http://localhost:1898/getTxnByCount', {
+            "txnCount": 100
+          })
+          .then((response) => {
+            const data = response.data.data.response;
+            data.forEach(element => {
+              if(element.role=="Sender"){
+                element.edit = false;
+                this.txns.push(element)
+              }
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        } else if(tabNumber==3) {
+          this.txns = []
+
+          axios.post('http://localhost:1898/getTxnByCount', {
+            "txnCount": 100
+          })
+          .then((response) => {
+            const data = response.data.data.response;
+            data.forEach(element => {
+              if(element.role!="Sender"){
+                element.edit = false;
+                this.txns.join(element)
+              }
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        }
+      },
+
+      dashboard() {
         axios.get('http://localhost:1898/getTransactionHeader')
         .then((response) => {
           this.stats = response.data.data;
@@ -213,19 +254,6 @@ export default {
           console.log(error);
         });
       },
-
-      transactions() {
-        axios.post('http://localhost:1898/getTxnByCount', {
-          "txnCount": 100
-        })
-        .then((response) => {
-          this.txns = response.data.data.response;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-
 
     },
     beforeMount() {
