@@ -3,11 +3,13 @@
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+// const fixPath = require('fix-path');
+import { rootPath } from 'electron-root-path';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const { exec } = require("child_process");
 import path from 'path'
 
-const os = require('os')
+import { platform } from 'os';
 var kill  = require('tree-kill');
 
 // Scheme must be registered before the app is ready
@@ -27,8 +29,19 @@ exec("ipfs daemon", (error, data, getter) => {
 	console.log("data",data);
 
 });
+const root = rootPath;
 
+console.log("root path")
+console.log(root)
+// const binariesPath = path.join(root, './resources');
+// export const jarPath = path.resolve(path.join(binariesPath, './rubix_api.jar'));
+
+// fixPath();
 var jarPath = __dirname + '/extraResources/rubix_api.jar';
+// var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
+// var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
+// var jarPath = 'app://./rubix_api.jar'
+// var jarPathProd = 'app://./resources/app.asar.unpacked/rubix_api.jar';
 console.log("jarpath here")
 console.log(jarPath)
 var child = require('child_process').spawn(
@@ -47,7 +60,7 @@ async function createWindow() {
     width: 1410,
     height: 1000,
     title: "RubiX Wallet",
-    icon: path.join(__dirname, 'favicon.png'),
+    icon: path.join(app.getAppPath(), 'public/favicon.png'),
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

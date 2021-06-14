@@ -22,6 +22,8 @@
     "core-js": "^3.6.4",
     "easy-circular-progress": "^1.0.4",
     "electron-packager": "^15.1.0",
+    "electron-root-path": "^1.0.16",
+    "fix-path": "^3.0.0",
     "i": "^0.3.6",
     "kill-port": "^1.6.0",
     "npm": "^7.17.0",

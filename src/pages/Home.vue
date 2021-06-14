@@ -79,7 +79,7 @@
                   :filter-by-query="false">
                 </vue-simple-suggest>
               </div>
-              <button @click="initiateTransaction" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 dark:hover:bg-indigo-600 rounded text-lg">Initiate Transaction</button>
+              <button :disabled='dashboardData.balance==0' @click="initiateTransaction" :class="{'disable-input' : true}" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 dark:hover:bg-indigo-600 rounded text-lg">Initiate Transaction</button>
               <p class="text-xs mt-3">Transaction will take approx 1 min to complete.</p>
             </div>
           </div>
@@ -125,8 +125,6 @@ export default {
       },
 
       initiateTransaction() {
-        console.log("new trxxnnnnn")
-        console.log(this.newTxn)
         axios.post('http://localhost:1898/initiateTransaction', {
           "receiver": this.newTxn.receiver,
           "tokenCount": this.newTxn.tokenCount,
@@ -171,3 +169,8 @@ export default {
  }
 }
 </script>
+<style scoped>
+input.disable-input {
+  background-color: gray;
+}
+</style>

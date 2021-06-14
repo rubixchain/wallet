@@ -6,8 +6,13 @@ module.exports = {
     pluginOptions: {
         electronBuilder: {
             builderOptions: {
+                extraFiles: {
+                from: 'src/extraResources/rubix_api.jar',
+                to: './resources/app.asar.unpacked/rubix_api.jar',
+                filter: ["**/*"]
+                },
                 productName: "RubiX Wallet",
-                appId: 'test.com',
+                appId: 'rubix.network',
                 win: {
                     "target": [
                         "nsis"
