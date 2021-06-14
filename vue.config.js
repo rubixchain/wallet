@@ -26,7 +26,7 @@ module.exports = {
                     "uninstallDisplayName": "RubiX Wallet",
                     "license": "license.txt",
                     "oneClick": false,
-                    "allowToChangeInstallationDirectory": true
+                    "allowToChangeInstallationDirectory": false
                 }
             },
         },

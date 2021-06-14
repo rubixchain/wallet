@@ -37,7 +37,10 @@ console.log(root)
 // export const jarPath = path.resolve(path.join(binariesPath, './rubix_api.jar'));
 
 // fixPath();
-var jarPath = __dirname + '/extraResources/rubix_api.jar';
+// var jarPath = __dirname + '/resources/app.asar.unpacked/rubix_api.jar';
+
+const dirPath = __dirname.replace('app.asar', 'app.asar.unpacked');
+var jarPath = dirPath + '/rubix_api.jar';
 // var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
 // var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
 // var jarPath = 'app://./rubix_api.jar'
