@@ -57,8 +57,14 @@ export default {
       });
      }
     },
-    beforeMount(){
+    mounted: function () {
+      window.setInterval(() => {
         this.check()
+      }, 3000)
+    },
+
+    beforeMount(){
+        // this.check()
     }
 }
 </script>

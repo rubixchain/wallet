@@ -163,9 +163,16 @@ export default {
       }
 
     },
+    mounted: function () {
+      window.setInterval(() => {
+        this.dashboard()
+        this.transactions()
+      }, 3000)
+    },
+
     beforeMount(){
-      this.dashboard()
-      this.transactions()
+      // this.dashboard()
+      // this.transactions()
  }
 }
 </script>

@@ -130,8 +130,14 @@ export default {
       }
 
     },
+    mounted: function () {
+      window.setInterval(() => {
+        this.dashboard()
+      }, 3000)
+    },
+
     beforeMount(){
-    this.dashboard()
+    // this.dashboard()
  }
 }
 </script>
