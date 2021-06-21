@@ -155,8 +155,10 @@ export default {
       saveContact: function(person){
         Object.assign(person, this._originalPerson);
         const formData = new FormData()
-        formData.append('did', person.did)
+        formData.append('did', person.senderDID)
         formData.append('nickname', this.newNick)
+        console.log("nickname is::")
+        console.log(person.senderDID)
         console.log(this.newNick)
         axios.post('http://localhost:1898/addNickName', formData,{
         headers: {
@@ -257,6 +259,7 @@ export default {
 
     },
     beforeMount() {
+      this.$loading(false)
       // this.transactions()
       this.dashboard()
       this.openTab()

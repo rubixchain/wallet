@@ -109,6 +109,7 @@ export default {
 
     },
     beforeMount(){
+        this.$loading(false)
         this.dashboard()
         this.transactions()
  }

@@ -38,6 +38,7 @@ export default {
         this.selectedFile = event.target.files[0]
       },
       create() {
+        this.$loading(true)
         const formData = new FormData()
         formData.append('data', this.passphrase)
         formData.append('image', this.selectedFile)
@@ -50,15 +51,18 @@ export default {
           if(response.data.data.response.Status =='Success') {
             axios.get('http://localhost:1898/start')
             .then((response) => {
+              this.$loading(false)
               this.$router.push({path: '/home'})
             })
             .catch(function (error) {
               console.log(error);
+              this.$loading(false)
             });
           }
         })
         .catch(function (error) {
           console.log(error);
+          this.$loading(false)
         });
       },
       check() {

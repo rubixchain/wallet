@@ -48,6 +48,7 @@
     "vue-simple-suggest": "^1.11.0",
     "vue-suggestion": "^1.1.0",
     "vue2-circle-progress": "^1.2.3",
+    "vuejs-loading-plugin": "^1.0.51",
     "vuejs-smart-table": "^0.0.7",
     "vuex": "^3.1.2",
     "xmlhttprequest": "^1.8.0"

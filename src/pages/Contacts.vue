@@ -103,6 +103,7 @@ export default {
 
     },
     beforeMount(){
+      this.$loading(false)
       this.allContacts()
       this.dashboard()
  }

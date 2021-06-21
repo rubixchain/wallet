@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Router from 'vue-router'
+import VueLoading from 'vuejs-loading-plugin'
 
 import Dashboard from '@/components/Dashboard'
 import DashboardHome from '@/pages/Home'
@@ -23,6 +24,7 @@ import '@/assets/css/tailwind.css'
 Vue.config.productionTip = true
 
 Vue.use(Router)
+Vue.use(VueLoading)
 
 const routes = [
   { path: '/', redirect: { name: 'DashboardHome' } },

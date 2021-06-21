@@ -3,7 +3,7 @@
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-// const fixPath = require('fix-path');
+const fixPath = require('fix-path');
 import { rootPath } from 'electron-root-path';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const { exec } = require("child_process");
@@ -36,7 +36,7 @@ console.log(root)
 // const binariesPath = path.join(root, './resources');
 // export const jarPath = path.resolve(path.join(binariesPath, './rubix_api.jar'));
 
-// fixPath();
+fixPath();
 // var jarPath = __dirname + '/resources/app.asar.unpacked/rubix_api.jar';
 
 const dirPath = __dirname.replace('app.asar', 'app.asar.unpacked');

@@ -13911,6 +13911,11 @@ vue@^2.0.0, vue@^2.5.17, vue@^2.6.10, vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
+vuejs-loading-plugin@^1.0.51:
+  version "1.0.51"
+  resolved "https://registry.yarnpkg.com/vuejs-loading-plugin/-/vuejs-loading-plugin-1.0.51.tgz#e1967f7994b28faa3b5c873a17e77f196c051f77"
+  integrity sha512-iofgm9O1vir4JpU53K8dmYO3EfXUtelGNdkv4nBR80S7RuVIP/vn69IFFhy90ISQhB7VZH4seUuHaBqTVbKGAA==
+
 vuejs-smart-table@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/vuejs-smart-table/-/vuejs-smart-table-0.0.7.tgz#ab017a1dd8302725fc9672f96bc8f419706857d9"

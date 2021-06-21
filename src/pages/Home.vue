@@ -125,6 +125,8 @@ export default {
       },
 
       initiateTransaction() {
+        this.$loading(true)
+
         axios.post('http://localhost:1898/initiateTransaction', {
           "receiver": this.newTxn.receiver,
           "tokenCount": this.newTxn.tokenCount,
@@ -133,10 +135,11 @@ export default {
           // "Quorum": this.quorum
         })
         .then((response) => {
-
+          this.$loading(false)
         })
         .catch(function (error) {
           console.log(error);
+          this.$loading(false)
         });
       },
 
@@ -171,8 +174,9 @@ export default {
     },
 
     beforeMount(){
-      // this.dashboard()
-      // this.transactions()
+      this.$loading(false)
+      this.dashboard()
+      this.transactions()
  }
 }
 </script>
