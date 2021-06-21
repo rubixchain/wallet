@@ -36,17 +36,24 @@ console.log(root)
 // const binariesPath = path.join(root, './resources');
 // export const jarPath = path.resolve(path.join(binariesPath, './rubix_api.jar'));
 
-fixPath();
 // var jarPath = __dirname + '/resources/app.asar.unpacked/rubix_api.jar';
+fixPath();
 
 const dirPath = __dirname.replace('app.asar', 'app.asar.unpacked');
+
+console.log(dirPath)
+if(process.platform=='macos') {
+  jarPath.concat('/')
+}
+
 var jarPath = dirPath + '/rubix_api.jar';
 // var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
 // var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
 // var jarPath = 'app://./rubix_api.jar'
 // var jarPathProd = 'app://./resources/app.asar.unpacked/rubix_api.jar';
-console.log("jarpath here")
+console.log("final jarpath here")
 console.log(jarPath)
+
 var child = require('child_process').spawn(
  'java', ['-jar', jarPath, '']
 );
@@ -54,6 +61,11 @@ var child = require('child_process').spawn(
 child.stdout.on('data', (d) => {
   console.log(d.toString())
 })
+
+const nativeImage = require('electron').nativeImage;
+    var image = nativeImage.createFromPath(__dirname + '/build/icon.png');
+
+    image.setTemplateImage(true);
 
 async function createWindow() {
   console.log("Static path")
@@ -63,7 +75,7 @@ async function createWindow() {
     width: 1410,
     height: 1000,
     title: "RubiX Wallet",
-    icon: path.join(app.getAppPath(), 'public/favicon.png'),
+    icon: image,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

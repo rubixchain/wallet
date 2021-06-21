@@ -17,7 +17,7 @@ module.exports = {
                     "target": [
                         "nsis"
                     ],
-                //   icon: 'favicon.ico',
+                    icon: 'public/favicond.png',
                   "requestedExecutionLevel": "requireAdministrator"
                 },
                 "nsis": {
