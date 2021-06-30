@@ -110,7 +110,7 @@ export default {
               receiver: "",
               tokenCount: 1,
               comment: "",
-              type: 2
+              type: 1
             }
         }
     },
@@ -144,17 +144,14 @@ export default {
       },
 
       transactions() {
-        this.$loading(true)
         axios.post('http://localhost:1898/getTxnByCount', {
           "txnCount": 5
         })
         .then((response) => {
 
-          this.$loading(false)
           this.txns = response.data.data.response;
         })
         .catch(function (error) {
-          this.$loading(false)
           console.log(error);
         });
       },
@@ -178,6 +175,7 @@ export default {
     },
 
     beforeMount(){
+      this.$loading(false)
       this.dashboard()
       this.transactions()
  }

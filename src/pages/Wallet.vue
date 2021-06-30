@@ -36,7 +36,7 @@
                 </div>
                 <div class="p-2 sm:w-1/2 w-full">
                     <div class="bg-red-200 dark:bg-gray-800 rounded flex p-4 h-full items-center">
-                    <span class="dark:text-indigo-400 tracking-widest font-medium title-font">Transaction</span>
+                    <span class="dark:text-indigo-400 tracking-widest font-medium title-font">Transactions</span>
                     <span class="px-3 title-font font-medium dark:text-white">{{dashboardData.totalTxn}}</span>
                     </div>
                 </div>

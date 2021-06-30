@@ -5,7 +5,7 @@
     <div class="flex flex-wrap -m-4 text-center">
       <div class="p-4 sm:w-1/4 w-1/2">
         <h2 class="title-font font-medium sm:text-4xl text-3xl dark:text-white">{{stats.txnCount}}</h2>
-        <p class="leading-relaxed">Highest Amount</p>
+        <p class="leading-relaxed">Transactions</p>
       </div>
       <div class="p-4 sm:w-1/4 w-1/2">
         <h2 class="title-font font-medium sm:text-4xl text-3xl dark:text-white">{{stats.maxCredits}}</h2>
@@ -29,7 +29,7 @@
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
               </svg>
-              Last 7 days
+              Latest Transactions
             </a>
             <a v-on:click="toggleTabs(2)" class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-800 hover:dark:text-white tracking-wider" v-bind:class="{'bg-red-200 dark:bg-gray-800 border-red-500 dark:border-indigo-500 dark:text-white rounded-t': openTab === 2, '': openTab !== 2}">
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -157,9 +157,7 @@ export default {
         const formData = new FormData()
         formData.append('did', person.senderDID)
         formData.append('nickname', this.newNick)
-        console.log("nickname is::")
-        console.log(person.senderDID)
-        console.log(this.newNick)
+        
         axios.post('http://localhost:1898/addNickName', formData,{
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -175,6 +173,7 @@ export default {
       },
 
       toggleModal: function(txn){
+
         this.showModal = !this.showModal;
         axios.post('http://localhost:1898/getTxnDetails',{
           'transactionID': txn
@@ -191,9 +190,8 @@ export default {
         this.openTab = tabNumber
         if(tabNumber==1) {
           this.txns = []
-          axios.post('http://localhost:1898/getTxnByDate', {
-            "sDate":"2021-06-01",
-            "eDate":"2021-06-12"
+          axios.post('http://localhost:1898/getTxnByCount', {
+           "txnCount": 25
           })
           .then((response) => {
             const data = response.data.data.response;
@@ -208,7 +206,6 @@ export default {
 
         } else if(tabNumber==2) {
           this.txns = []
-          console.log("fetching sent transactions")
           axios.post('http://localhost:1898/getTxnByCount', {
             "txnCount": 100
           })
@@ -227,16 +224,16 @@ export default {
 
         } else if(tabNumber==3) {
           this.txns = []
-
+      
           axios.post('http://localhost:1898/getTxnByCount', {
             "txnCount": 100
           })
           .then((response) => {
             const data = response.data.data.response;
             data.forEach(element => {
-              if(element.role!="Sender"){
+              if(element.role=="Receiver"){
                 element.edit = false;
-                this.txns.join(element)
+                this.txns.push(element)
               }
             });
           })
