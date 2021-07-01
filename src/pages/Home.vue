@@ -136,6 +136,9 @@ export default {
         })
         .then((response) => {
           this.$loading(false)
+          this.newTxn.receiver= ""
+          this.comment.receiver= ""
+            
         })
         .catch(function (error) {
           console.log(error);

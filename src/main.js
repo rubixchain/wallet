@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Router from 'vue-router'
 import VueLoading from 'vuejs-loading-plugin'
+// require('update-electron-app')()
 
 import Dashboard from '@/components/Dashboard'
 import DashboardHome from '@/pages/Home'
