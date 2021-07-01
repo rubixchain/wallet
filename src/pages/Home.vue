@@ -79,12 +79,36 @@
                   :filter-by-query="false">
                 </vue-simple-suggest>
               </div>
-              <button :disabled='dashboardData.balance==0' @click="initiateTransaction" :class="{'disable-input' : true}" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 dark:hover:bg-indigo-600 rounded text-lg">Initiate Transaction</button>
-              <p class="text-xs mt-3">Transaction will take approx 1 min to complete.</p>
+              <button :disabled='dashboardData.balance==0' @click="initiateTransaction()" class="dark:text-white border-0 py-2 px-8 focus:outline-none rounded text-lg" v-bind:class="{'bg-gray-300': dashboardData.balance==0, 'dark:bg-indigo-500 bg-red-500 hover:bg-red-600 dark:hover:bg-indigo-600': dashboardData.balance!=0}">Initiate Transaction</button>
+              <p v-if="dashboardData.balance!=0" class="text-xs mt-3">Transaction will take approx 1 min to complete.</p>
+              <p v-if="dashboardData.balance==0" class="text-xs mt-3">You dont have sufficient balance for transaction.</p>
             </div>
           </div>
         </div>
       </section>
+      <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <!--header-->
+          <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+            <h3 class="text-3xl font-semibold">
+              {{transactionResponse}}
+            </h3>
+            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
+              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                ×
+              </span>
+            </button>
+          </div>
+          <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 </template>
 
@@ -100,21 +124,28 @@ export default {
     },
     data() {
         return {
-            dashboardData: {},
-            quorum: [],
-            txns: [],
-            did:"",
-            picked: "",
+          transactionResponse: "Transaction Error",
+          showModal: false,
+          dashboardData: {},
+          quorum: [],
+          txns: [],
+          did:"",
+          picked: "",
 
-            newTxn: {
-              receiver: "",
-              tokenCount: 1,
-              comment: "",
-              type: 1
-            }
+          newTxn: {
+            receiver: "",
+            tokenCount: 1,
+            comment: "",
+            type: 1
+          }
         }
     },
     methods: {
+
+      toggleModal: function(){
+
+        this.showModal = !this.showModal;
+      },
 
       simpleSuggestionList() {
         return [
@@ -125,6 +156,7 @@ export default {
       },
 
       initiateTransaction() {
+
         this.$loading(true)
 
         axios.post('http://localhost:1898/initiateTransaction', {
@@ -138,6 +170,8 @@ export default {
           this.$loading(false)
           this.newTxn.receiver= ""
           this.comment.receiver= ""
+          this.transactionResponse = response.data.data.response.message
+          this.toggleModal()
             
         })
         .catch(function (error) {
