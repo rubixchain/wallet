@@ -169,14 +169,20 @@ export default {
         .then((response) => {
           this.$loading(false)
           this.newTxn.receiver= ""
-          this.comment.receiver= ""
           this.transactionResponse = response.data.data.response.message
+          this.newTxn.comment= ""
+          this.newTxn.tokenCount= 1
           this.toggleModal()
             
         })
         .catch(function (error) {
           console.log(error);
           this.$loading(false)
+          this.newTxn.receiver= ""
+          this.newTxn.comment= ""
+          this.newTxn.tokenCount= 1
+          this.transactionResponse = "Error, Try again!"
+          this.toggleModal()
         });
       },
 
