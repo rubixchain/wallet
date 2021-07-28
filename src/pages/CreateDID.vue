@@ -13,7 +13,8 @@
       </div>
       <div class="relative sm:mb-0 flex-grow w-full">
         <label for="email" class="leading-7 text-sm dark:text-gray-400">DID Image</label>
-        <input @change="onFileChanged" type="file" id="file" name="file" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <!-- <input @change="onFileChanged" type="file" id="file" name="file" class="w-full bg-red-200 dark:bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-red-500 dark:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-900 dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> -->
+        <button @click="generate" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-3 px-6 focus:outline-none hover:bg-red-300 dark:hover:bg-indigo-600 rounded text-lg">Generate Image</button>
       </div>
       <button @click="create" class="dark:text-white dark:tbg-indigo-500 bg-red-500 border-0 py-3 px-6 focus:outline-none hover:bg-red-300 dark:hover:bg-indigo-600 rounded text-lg">Create</button>
     </div>
@@ -24,30 +25,64 @@
 
 <script>
 import axios from 'axios'
-
+var fileHere;
 export default {
     name: 'CreateDID',
     data() {
         return {
           passphrase: "",
-          selectedFile: null
+          selectedFile: null,
+          selectedFile2: null,
+          fileHere: null
         }
     },
     methods: {
       onFileChanged (event) {
         this.selectedFile = event.target.files[0]
       },
+      generate(){
+        axios.get('http://localhost:1898/generate')
+          .then((response) => {
+            if(document.getElementById("generatedImg") == null){
+              var img = document.createElement('img');
+              img.src = response.data.data.response;
+              img.id = "generatedImg";
+              document.getElementsByTagName("body")[0].appendChild(img);
+              document.getElementById("generatedImg").style.margin="auto";
+              document.getElementById("generatedImg").style.position="relative";
+              document.getElementById("generatedImg").style.top="-400px";
+              this.selectedFile2 = response.data.data.response;
+              this.urltoFile(this.selectedFile2, 'Output.png', 'image/png').then(function (file) { 
+          fileHere = file;
+  })
+            }
+	})
+      },
+      urltoFile(url, filename, mimeType) {
+        return (fetch(url)
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+        );
+      },
       create() {
-        this.$loading(true)
-        const formData = new FormData()
-        formData.append('data', this.passphrase)
-        formData.append('image', this.selectedFile)
+        //alert("hai");
+        this.$loading(true);
+        
+        
+        const formData = new FormData();
+        //alert("here")
+        //this.$loading(true);
+        /* formData.append('data', this.passphrase)
+        formData.append('image', this.selectedFile) */
+        formData.append('data', document.getElementById("passphrase").value);
+        formData.append('image', fileHere);
         axios.post('http://localhost:1898/create', formData,{
         headers: {
           'Content-Type': 'multipart/form-data'
         }
         })
         .then((response) => {
+          console.log(response);
           if(response.data.data.response.Status =='Success') {
             axios.get('http://localhost:1898/start')
             .then((response) => {
@@ -55,12 +90,14 @@ export default {
               this.$router.push({path: '/home'})
             })
             .catch(function (error) {
+              alert("catch2")
               console.log(error);
               this.$loading(false)
             });
           }
         })
         .catch(function (error) {
+          alert("catch")
           console.log(error);
           this.$loading(false)
         });
