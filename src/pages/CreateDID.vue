@@ -48,6 +48,7 @@ export default {
               img.src = response.data.data.response;
               img.id = "generatedImg";
               document.getElementsByTagName("body")[0].appendChild(img);
+              document.getElementById("generatedImg").style.display="block";
               document.getElementById("generatedImg").style.margin="auto";
               document.getElementById("generatedImg").style.position="relative";
               document.getElementById("generatedImg").style.top="-400px";
@@ -66,6 +67,7 @@ export default {
       },
       create() {
         //alert("hai");
+        document.getElementById("generatedImg").style.display="none";
         this.$loading(true);
         
         
