@@ -7,8 +7,8 @@ module.exports = {
         electronBuilder: {
             builderOptions: {
                 extraFiles: {
-                from: 'src/extraResources/rubix_api.jar',
-                to: './resources/app.asar.unpacked/rubix_api.jar',
+                from: 'src/extraResources/delta.jar',
+                    to: './resources/app.asar.unpacked/delta.jar',
                 filter: ["**/*"]
                 },
                 productName: "RubiX Wallet",

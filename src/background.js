@@ -46,7 +46,7 @@ if(process.platform=='macos') {
   jarPath.concat('/')
 }
 
-var jarPath = dirPath + '/rubix_api.jar';
+var jarPath = dirPath + '/delta.jar';
 // var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
 // var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
 // var jarPath = 'app://./rubix_api.jar'
@@ -69,7 +69,7 @@ const nativeImage = require('electron').nativeImage;
 
 async function createWindow() {
   console.log("Static path")
-  console.log(__static)
+  //console.log(__static)
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1410,
