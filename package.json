@@ -2,7 +2,7 @@
   "name": "wallet",
   "version": "1.0.4",
   "description": "wallet app for rubix users",
-  "author": "Nidhin Mahesh A <nidhin.m@ensurity.com> and Abhiram Deviprasad <abhiram.d@ensurity.com>",
+  "author": "Rubix Maintainers <maintainers@rubix.network>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8081",
