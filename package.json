@@ -20,7 +20,7 @@
   "dependencies": {
     "@chenfengyuan/vue-carousel": "^1.0.6",
     "@vue/compiler-sfc": "^3.0.7",
-    "axios": "^0.24.0",
+    "axios": "^0.21.2",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
     "easy-circular-progress": "^1.0.4",
