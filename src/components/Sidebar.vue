@@ -120,7 +120,7 @@ export default {
       // },
 
       dashboard() {
-        axios.get('http://localhost:1898/getDashboard')
+        axios.get('http://localhost:1898/getAccountInfo')
         .then((response) => {
           this.balance = response.data.data.response.balance;
         })

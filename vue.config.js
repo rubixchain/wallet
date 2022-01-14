@@ -1,15 +1,15 @@
 module.exports = {
     devServer: {
         port: 8081
-     },
+    },
     publicPath: '/',
     pluginOptions: {
         electronBuilder: {
             builderOptions: {
                 extraFiles: {
-                from: 'src/extraResources/delta.jar',
+                    from: 'src/extraResources/delta.jar',
                     to: './resources/app.asar.unpacked/delta.jar',
-                filter: ["**/*"]
+                    filter: ["**/*"]
                 },
                 productName: "RubiX Wallet",
                 appId: 'rubix.network',
@@ -17,8 +17,8 @@ module.exports = {
                     "target": [
                         "nsis"
                     ],
-                    icon: 'public/favicond.png',
-                  "requestedExecutionLevel": "requireAdministrator"
+                    icon: 'public/favicon.png',
+                    "requestedExecutionLevel": "requireAdministrator"
                 },
                 "nsis": {
                     // "installerIcon": "favicon.ico",
