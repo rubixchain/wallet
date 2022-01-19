@@ -11,7 +11,7 @@ module.exports = {
                     to: './resources/app.asar.unpacked/delta.jar',
                     filter: ["**/*"]
                 },
-                productName: "RubiX Wallet",
+                productName: "Rubix Wallet",
                 appId: 'rubix.network',
                 win: {
                     "target": [
@@ -23,7 +23,7 @@ module.exports = {
                 "nsis": {
                     // "installerIcon": "favicon.ico",
                     // "uninstallerIcon": "favicon.ico",
-                    "uninstallDisplayName": "RubiX Wallet",
+                    "uninstallDisplayName": "Rubix Wallet",
                     "license": "license.txt",
                     "oneClick": false,
                     "allowToChangeInstallationDirectory": false

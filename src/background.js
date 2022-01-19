@@ -10,7 +10,7 @@ const { exec } = require("child_process");
 import path from 'path'
 
 import { platform } from 'os';
-var kill  = require('tree-kill');
+var kill = require('tree-kill');
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -18,15 +18,15 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 exec("ipfs daemon", (error, data, getter) => {
-	if(error){
-		console.log("error",error.message);
-		return;
-	}
-	if(getter){
-		console.log("data",data);
-		return;
-	}
-	console.log("data",data);
+  if (error) {
+    console.log("error", error.message);
+    return;
+  }
+  if (getter) {
+    console.log("data", data);
+    return;
+  }
+  console.log("data", data);
 
 });
 const root = rootPath;
@@ -42,7 +42,7 @@ fixPath();
 const dirPath = __dirname.replace('app.asar', 'app.asar.unpacked');
 
 console.log(dirPath)
-if(process.platform=='macos') {
+if (process.platform == 'macos') {
   jarPath.concat('/')
 }
 
@@ -55,7 +55,7 @@ console.log("final jarpath here")
 console.log(jarPath)
 
 var child = require('child_process').spawn(
- 'java', ['-jar', jarPath, '']
+  'java', ['-jar', jarPath, '']
 );
 
 child.stdout.on('data', (d) => {
@@ -63,9 +63,9 @@ child.stdout.on('data', (d) => {
 })
 
 const nativeImage = require('electron').nativeImage;
-    var image = nativeImage.createFromPath(__dirname + '/build/icon.png');
+var image = nativeImage.createFromPath(__dirname + '/build/icon.png');
 
-    image.setTemplateImage(true);
+image.setTemplateImage(true);
 
 async function createWindow() {
   console.log("Static path")
@@ -74,10 +74,10 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 1410,
     height: 1000,
-    title: "RubiX Wallet",
+    title: "Rubix Wallet",
     icon: image,
     webPreferences: {
-      
+
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: true,
@@ -98,8 +98,8 @@ async function createWindow() {
 }
 
 app.on('window-all-closed', () => {
-    kill(child.pid);
-    app.quit()
+  kill(child.pid);
+  app.quit()
 })
 
 app.on('activate', () => {

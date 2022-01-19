@@ -9,6 +9,7 @@ import DashboardHome from '@/pages/Home'
 import CreateDID from '@/pages/CreateDID'
 import Contacts from '@/pages/Contacts'
 import Explorer from '@/pages/Explorer'
+import Bootstraps from '@/pages/Bootstraps'
 import Transactions from '@/pages/Transactions'
 import Wallet from '@/pages/Wallet'
 
@@ -31,11 +32,13 @@ const routes = [
   { path: '/', redirect: { name: 'DashboardHome' } },
   { path: '*', redirect: { name: 'DashboardHome' } },
   { path: '/auth', name: 'CreateDID', component: CreateDID },
-  { path: '/wallet', component: Dashboard, children: [
+  {
+    path: '/wallet', component: Dashboard, children: [
       { path: '/', redirect: { name: 'DashboardHome' } },
       { path: 'home', name: 'DashboardHome', component: DashboardHome },
       { path: 'contacts', name: 'Contacts', component: Contacts },
       { path: 'explorer', name: 'Explorer', component: Explorer },
+      { path: 'bootstraps', name: 'Bootstraps', component: Bootstraps },
       { path: 'transactions', name: 'Transactions', component: Transactions },
       { path: 'my-wallet', name: 'Wallet', component: Wallet },
     ]

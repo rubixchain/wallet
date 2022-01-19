@@ -1,4 +1,4 @@
-# WALLET-RubiX UI
+# WALLET-Rubix UI
 
 ## Project setup
 ```
