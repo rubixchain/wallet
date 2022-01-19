@@ -24,19 +24,8 @@
             text-center
           "
         >
-          <h2
-            class="
-              text-xs text-indigo-400
-              tracking-widest
-              font-medium
-              title-font
-              mb-1
-            "
-          >
-            {{ dashboardData.nickname }}
-          </h2>
           <h1 class="md:text-l text-xl font-medium title-font text-white">
-            {{ dashboardData.did }}
+            {{ did }}
           </h1>
         </div>
         <div
@@ -114,7 +103,10 @@
     <section class="text-white bg-gray-900 body-font">
       <div class="container px-0 py-10 mx-auto flex flex-wrap">
         <div class="flex flex-wrap w-full">
-          <div class="lg:w-2/3 md:w-2/3 md:pr-10 md:py-4">
+          <div
+            v-if="txns.length > 0 && txns[0].Date != null"
+            class="lg:w-2/3 md:w-2/3 md:pr-10 md:py-4"
+          >
             <div v-for="t in txns" :key="t" class="flex relative">
               <div
                 class="
@@ -502,35 +494,38 @@ export default {
         .get("http://localhost:1898/getAccountInfo")
         .then((response) => {
           this.balance = response.data.data.response.balance;
-          this.credCount = response.data.data.response.balance;
-          this.txnCount = response.data.data.response.balance;
+          this.credCount = response.data.data.response.credits.spentCredits;
+          this.txnCount = response.data.data.response.totalTxn;
+          this.did = response.data.data.response.did;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
 
-    dashboard() {
-      axios
-        .get("http://localhost:1898/getDashboard")
-        .then((response) => {
-          this.dashboardData = response.data.data.response;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    // dashboard() {
+    //   axios
+    //     .get("http://localhost:1898/getDashboard")
+    //     .then((response) => {
+    //       this.dashboardData = response.data.data.response;
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // },
   },
   mounted: function () {
     window.setInterval(() => {
-      this.dashboard();
+      // this.dashboard();
+      this.account();
       this.transactions();
     }, 3000);
   },
 
   beforeMount() {
     this.$loading(false);
-    this.dashboard();
+    // this.dashboard();
+    this.account();
     this.balance();
     this.transactions();
   },
