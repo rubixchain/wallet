@@ -7,8 +7,8 @@ module.exports = {
         electronBuilder: {
             builderOptions: {
                 extraFiles: {
-                    from: 'src/extraResources/delta.jar',
-                    to: './resources/app.asar.unpacked/delta.jar',
+                    from: 'src/extraResources/rubix.jar',
+                    to: './resources/app.asar.unpacked/rubix.jar',
                     filter: ["**/*"]
                 },
                 productName: "Rubix Wallet",
@@ -25,8 +25,8 @@ module.exports = {
                     // "uninstallerIcon": "favicon.ico",
                     "uninstallDisplayName": "Rubix Wallet",
                     "license": "license.txt",
-                    "oneClick": false,
-                    "allowToChangeInstallationDirectory": false
+                    "oneClick": true,
+                    "allowToChangeInstallationDirectory": true
                 }
             },
         },

@@ -46,7 +46,7 @@ if (process.platform == 'macos') {
   jarPath.concat('/')
 }
 
-var jarPath = dirPath + '/delta.jar';
+var jarPath = dirPath + '/rubix.jar';
 // var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
 // var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
 // var jarPath = 'app://./rubix_api.jar'
