@@ -65,9 +65,7 @@
               <span class="text-xs text-blue-700 text-gray-500 mb-1"
                 >Proof Credits</span
               >
-              <span class="title-font font-medium">{{
-                dashboardData.proofCredits
-              }}</span>
+              <span class="title-font font-medium">{{ credCount }}</span>
             </span>
           </button>
           <button
@@ -107,9 +105,7 @@
               <span class="text-xs text-blue-700 text-gray-500 mb-1"
                 >Transactions</span
               >
-              <span class="title-font font-medium">{{
-                dashboardData.totalTxn
-              }}</span>
+              <span class="title-font font-medium">{{ txnCount }}</span>
             </span>
           </button>
         </div>
@@ -433,6 +429,8 @@ export default {
       transactionResponse: "Transaction Error",
       showModal: false,
       balance: 0,
+      credCount: 0,
+      txnCount: 0,
       dashboardData: {},
       quorum: [],
       txns: [],
@@ -504,6 +502,8 @@ export default {
         .get("http://localhost:1898/getAccountInfo")
         .then((response) => {
           this.balance = response.data.data.response.balance;
+          this.credCount = response.data.data.response.balance;
+          this.txnCount = response.data.data.response.balance;
         })
         .catch(function (error) {
           console.log(error);

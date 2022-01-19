@@ -2,6 +2,7 @@
   <div id="Bootstraps">
     <section class="text-gray-600 body-font overflow-hidden">
       <button
+        @click="changeBootButton()"
         class="
           flex
           mx-auto
@@ -17,12 +18,13 @@
           text-lg
         "
       >
-        Add new Bootstrap
+        {{ boot_button }}
       </button>
-      <div class="p-4">
+      <div v-if="boot_button == 'Add Bootstrap'" class="p-4">
         <input
           type="text"
-          id="bootstrap"
+          id="text"
+          v-model="newBootstrap"
           name="text"
           class="
             w-full
@@ -42,7 +44,10 @@
           "
         />
       </div>
-      <div class="container px-5 py-24 mx-auto">
+      <div
+        v-if="bootstraps.length > 0 && bootstraps[0] != ''"
+        class="container px-5 py-24 mx-auto"
+      >
         <div
           v-for="(boot, index) in bootstraps"
           :key="boot.key"
@@ -51,8 +56,13 @@
           <div class="py-8 flex flex-wrap md:flex-nowrap">
             <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
               <span class="font-semibold title-font text-gray-700"
-                >BOOTSTRAP {{ index + 1 }}</span
-              >
+                >BOOTSTRAP {{ index + 1 }}
+                <!-- <span
+                  @click="swarmConnect(boot)"
+                  class="cursor-pointer p-3 text-green-500 text-xs w-0"
+                  >Swarm Connect</span
+                > -->
+              </span>
               <span
                 @click="removeBootstrap(boot)"
                 class="cursor-pointer mt-1 text-red-500 text-sm w-0"
@@ -80,17 +90,70 @@ export default {
   name: "Bootstraps",
   data() {
     return {
+      boot_button: "Add new Bootstrap",
+      newBootstrap: "",
+      boot_button_stat: false,
       message: "",
       bootstraps: [],
     };
   },
   methods: {
+    //function to change boot_button string
+    changeBootButton: function () {
+      if (this.boot_button == "Add new Bootstrap") {
+        this.boot_button = "Add Bootstrap";
+      } else if (this.boot_button == "Add Bootstrap") {
+        //if text field is not empty, call addBootstrap function
+        console.log(this.newBootstrap);
+        if (this.newBootstrap != "") {
+          this.addBootstrap(this.newBootstrap);
+        }
+        this.boot_button = "Add new Bootstrap";
+      }
+    },
     dashboard() {
       axios
         .get("http://localhost:1898/bootstrap")
         .then((response) => {
           this.message = response.data.message;
-          this.bootstraps = this.message.split('""');
+          this.message = this.message.replace(/"+/g, "");
+          this.bootstraps = this.message.split(/(?=\/ip4)/);
+          console.log("bootstrap");
+          console.log(this.bootstraps);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    swarmConnect(data) {
+      console.log("adding bootstrap");
+      console.log(data);
+      axios
+        .get(`http://localhost:1898/connect`, null, {
+          params: { id: data },
+        })
+        .then((response) => {
+          console.log(response);
+          this.newBootstrap = "";
+          this.dashboard();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    addBootstrap(data) {
+      console.log("adding bootstrap");
+      console.log(data);
+      axios
+        .post(`http://localhost:1898/bootstrap`, null, {
+          params: { id: data },
+        })
+        .then((response) => {
+          console.log(response);
+          this.newBootstrap = "";
+          this.dashboard();
         })
         .catch(function (error) {
           console.log(error);
@@ -102,9 +165,10 @@ export default {
       console.log(data);
       axios
         .delete("http://localhost:1898/bootstrap", {
-          data: { id: data },
+          params: { id: data },
         })
         .then((response) => {
+          console.log(response);
           this.dashboard();
         })
         .catch(function (error) {
