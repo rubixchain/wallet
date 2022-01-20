@@ -12,12 +12,19 @@ import path from 'path'
 import { platform } from 'os';
 var kill = require('tree-kill');
 
+const cmd = "ipfs daemon"
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-exec("ipfs daemon", (error, data, getter) => {
+if(process.platform == "win32"){
+  cmd = "cmd /c ipfs daemon"
+}
+
+
+exec(cmd, (error, data, getter) => {
   if (error) {
     console.log("error", error.message);
     return;
