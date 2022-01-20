@@ -81,7 +81,7 @@
                 >Transactions</span
               >
               <span class="px-3 title-font font-medium text-white">{{
-                dashboardData.totalTxn
+                accountData.totalTxn
               }}</span>
             </div>
           </div>
@@ -92,9 +92,9 @@
                 >Proof Credits</span
               >
               <span class="px-3 title-font font-medium text-white">{{
-                dashboardData.proofCredits
+                accountData.credits.unspentCredits
               }}</span>
-              <div v-if="dashboardData.proofCredits > 10" class="px-6">
+              <div v-if="accountData.credits.unspentCredits > 16" class="px-6">
                 <button
                   @click="mine"
                   class="
@@ -155,6 +155,7 @@ export default {
   data() {
     return {
       dashboardData: {},
+      accountData: {},
       lastTxn: "",
     };
   },
@@ -192,10 +193,22 @@ export default {
           console.log(error);
         });
     },
+
+    account() {
+      axios
+        .get("http://localhost:1898/getAccountInfo")
+        .then((response) => {
+          this.accountData = response.data.data.response;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
   beforeMount() {
     this.$loading(false);
     this.dashboard();
+    this.account();
     this.transactions();
   },
 };
