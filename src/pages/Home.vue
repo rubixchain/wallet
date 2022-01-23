@@ -455,7 +455,7 @@ export default {
       console.log(this.newTxn);
 
       axios
-        .post("http://localhost:1898/initiateTransactio", {
+        .post("http://localhost:1898/initiateTransaction", {
           receiver: this.newTxn.receiver,
           tokenCount: this.newTxn.tokenCount,
           comment: this.newTxn.comment,
