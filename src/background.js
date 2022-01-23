@@ -12,7 +12,7 @@ import path from 'path'
 import { platform } from 'os';
 var kill = require('tree-kill');
 
-const cmd = "ipfs daemon"
+var cmd = "ipfs daemon"
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
