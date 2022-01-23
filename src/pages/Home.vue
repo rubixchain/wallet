@@ -74,7 +74,7 @@
               <span class="text-xs text-blue-700 text-gray-500 mb-1"
                 >Balance</span
               >
-              <span class="title-font font-medium">RBX {{ balance }}</span>
+              <span class="title-font font-medium">RBT {{ balance }}</span>
             </span>
           </button>
           <button
@@ -210,16 +210,19 @@
               ></textarea>
             </div>
             <div class="relative mb-4">
-              <label for="email" class="leading-7 text-l text-white"
+              <label for="number" class="leading-7 text-l text-white"
                 >Amount</label
               ><br />
-              <span class="pr-2 title-font font-medium">RBX</span>
+              <span class="pr-2 title-font font-medium">RBT</span>
               <input
                 v-model="newTxn.tokenCount"
-                type="email"
-                id="email"
-                name="email"
+                type="text"
+                id="tokens"
+                name="tokens"
                 class="
+                  slashed-zero
+                  tabular-nums
+                  md:normal-nums
                   w-1/3
                   bg-white bg-gray-600 bg-opacity-20
                   focus:bg-transparent focus:ring-2 focus:ring-indigo-900
@@ -431,7 +434,7 @@ export default {
 
       newTxn: {
         receiver: "",
-        tokenCount: 1,
+        tokenCount: 0.1,
         comment: "",
         type: 1,
       },
@@ -449,8 +452,10 @@ export default {
     initiateTransaction() {
       this.$loading(true);
 
+      console.log(this.newTxn);
+
       axios
-        .post("http://localhost:1898/initiateTransaction", {
+        .post("http://localhost:1898/initiateTransactio", {
           receiver: this.newTxn.receiver,
           tokenCount: this.newTxn.tokenCount,
           comment: this.newTxn.comment,
@@ -466,8 +471,10 @@ export default {
           this.toggleModal();
         })
         .catch(function (error) {
-          console.log(error);
           this.$loading(false);
+
+          console.log(error);
+
           this.newTxn.receiver = "";
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
@@ -526,7 +533,7 @@ export default {
     this.$loading(false);
     // this.dashboard();
     this.account();
-    this.balance();
+    // this.balance();
     this.transactions();
   },
 };

@@ -33,7 +33,7 @@
               <p class="text-base text-gray-600 text-black">Wallet Balance</p>
             </div>
             <div>
-              <p class="text-2xl text-green-500 font-bold">RBX {{ balance }}</p>
+              <p class="text-2xl text-green-500 font-bold">RBT {{ balance }}</p>
             </div>
             <div class="text-sm">
               <p class="text-gray-600 text-black">Since last month</p>

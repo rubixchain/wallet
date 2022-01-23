@@ -285,10 +285,10 @@
                 <!-- <h2 class="font-medium title-font text-white mb-1 text-l">quorum members: {{t.quorumList}}</h2> -->
               </div>
               <p class="leading-relaxed">
-                {{ t.tokens.length }}
-                <span v-if="t.tokens.length == 1">token</span
-                ><span v-if="t.tokens.length != 1">tokens</span> on
-                {{ t.Date }} in {{ t.totalTime }} milli sec
+                {{ t.amount }}
+                <span v-if="t.amount == 1">token</span
+                ><span v-if="t.amount != 1">tokens</span> on {{ t.Date }} in
+                {{ t.totalTime }} milli sec
               </p>
             </div>
           </div>
@@ -501,7 +501,7 @@ export default {
         this.txns = [];
         axios
           .post("http://localhost:1898/getTxnByCount", {
-            txnCount: 25,
+            txnCount: 1000,
           })
           .then((response) => {
             const data = response.data.data.response;
@@ -517,7 +517,7 @@ export default {
         this.txns = [];
         axios
           .post("http://localhost:1898/getTxnByCount", {
-            txnCount: 100,
+            txnCount: 10000,
           })
           .then((response) => {
             const data = response.data.data.response;
@@ -536,7 +536,7 @@ export default {
 
         axios
           .post("http://localhost:1898/getTxnByCount", {
-            txnCount: 100,
+            txnCount: 10000,
           })
           .then((response) => {
             const data = response.data.data.response;
@@ -566,6 +566,7 @@ export default {
   },
   beforeMount() {
     this.$loading(false);
+    this.toggleTabs(1);
     // this.transactions()
     this.dashboard();
     this.openTab();
