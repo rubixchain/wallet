@@ -216,6 +216,7 @@
               <span class="pr-2 title-font font-medium">RBT</span>
               <input
                 v-model="newTxn.tokenCount"
+                v-on:change="roundAmount"
                 type="text"
                 id="tokens"
                 name="tokens"
@@ -280,7 +281,7 @@
               Initiate Transaction
             </button>
             <p v-if="dashboardData.balance != 0" class="text-xs mt-3">
-              Transaction will take approx 1 min to complete.
+              Lowest transaction value is 0.001 RBT
             </p>
             <p v-if="dashboardData.balance == 0" class="text-xs mt-3">
               You dont have sufficient balance for transaction.
@@ -441,13 +442,17 @@ export default {
     };
   },
   methods: {
+    roundAmount: function () {
+      this.newTxn.tokenCount = parseFloat(this.newTxn.tokenCount).toFixed(3);
+    },
+
     toggleModal: function () {
       this.showModal = !this.showModal;
     },
 
-    simpleSuggestionList() {
-      return ["Gift", "Token Transfer", "Education"];
-    },
+    // simpleSuggestionList() {
+    //   return ["Gift", "Token Transfer", "Education"];
+    // },
 
     initiateTransaction() {
       this.$loading(true);

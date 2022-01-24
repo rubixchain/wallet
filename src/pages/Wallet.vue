@@ -37,7 +37,7 @@
                 >DID</span
               >
               <span class="px-3 title-font font-medium text-white">{{
-                dashboardData.did
+                accountData.did
               }}</span>
             </div>
           </div>
@@ -48,7 +48,7 @@
                 >WID</span
               >
               <span class="px-3 title-font font-medium text-white">{{
-                dashboardData.wid
+                accountData.wid
               }}</span>
             </div>
           </div>

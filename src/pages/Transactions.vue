@@ -263,7 +263,7 @@
                     border border-gray-600 border-red-500 border-indigo-500
                     text-base
                     outline-none
-                    text-gray-900 text-gray-100
+                    text-gray-100
                     py-1
                     px-3
                     leading-8
