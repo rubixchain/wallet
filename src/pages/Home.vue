@@ -443,7 +443,12 @@ export default {
   },
   methods: {
     roundAmount: function () {
-      this.newTxn.tokenCount = parseFloat(this.newTxn.tokenCount).toFixed(3);
+      if (this.newTxn.tokenCount < 0.001) {
+        this.newTxn.tokenCount = 0.001;
+      }
+      if (this.newTxn.tokenCount > 0.001) {
+        this.newTxn.tokenCount = parseFloat(this.newTxn.tokenCount).toFixed(3);
+      }
     },
 
     toggleModal: function () {
