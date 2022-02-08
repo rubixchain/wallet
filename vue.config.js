@@ -18,14 +18,14 @@ module.exports = {
                         "nsis"
                     ],
                     icon: 'public/favicon.png',
-                    "requestedExecutionLevel": "requireAdministrator"
+                    "requestedExecutionLevel": "highestAvailable"
                 },
                 "nsis": {
                     // "installerIcon": "favicon.ico",
                     // "uninstallerIcon": "favicon.ico",
                     "uninstallDisplayName": "Rubix Wallet",
                     "license": "license.txt",
-                    "oneClick": true,
+                    "oneClick": false,
                     "allowToChangeInstallationDirectory": true
                 }
             },

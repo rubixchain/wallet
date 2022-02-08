@@ -7,20 +7,33 @@ const fixPath = require('fix-path');
 import { rootPath } from 'electron-root-path';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const { exec } = require("child_process");
+const cors = require('cors');
+
 import path from 'path'
 
 import { platform } from 'os';
+import e from 'cors';
+const express = require('express');
+const exp = express();
+const port = 2000;
+
+
+exp.listen(port, () => console.log("app listening on port ", port));
+
+
 var kill = require('tree-kill');
 
-const cmd = "ipfs daemon"
+var cmd = "ipfs daemon"
+
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-if(process.platform == "win32"){
+if (process.platform == "win32") {
   cmd = "cmd /c ipfs daemon"
+
 }
 
 
@@ -36,6 +49,8 @@ exec(cmd, (error, data, getter) => {
   console.log("data", data);
 
 });
+
+
 const root = rootPath;
 
 console.log("root path")
@@ -52,7 +67,6 @@ console.log(dirPath)
 if (process.platform == 'macos') {
   jarPath.concat('/')
 }
-
 var jarPath = dirPath + '/rubix.jar';
 // var jarPath = path.join(app.getAppPath(), '/rubix_api.jar')
 // var jarPath = path.resolve(`${process.resourcesPath}/../bin/rubix_api.jar`);
@@ -60,15 +74,21 @@ var jarPath = dirPath + '/rubix.jar';
 // var jarPathProd = 'app://./resources/app.asar.unpacked/rubix_api.jar';
 console.log("final jarpath here")
 console.log(jarPath)
-
-var child = require('child_process').spawn(
+var child;
+var jarProcesssPID=0;
+function startJar(){
+child = require('child_process').spawn(
   'java', ['-jar', jarPath, '']
 );
-
+jarProcesssPID=child.pid
+console.log("process ID of JAR")
+console.log(jarProcesssPID)
+console.log(child.pid)
 child.stdout.on('data', (d) => {
   console.log(d.toString())
 })
-
+}
+startJar();
 const nativeImage = require('electron').nativeImage;
 var image = nativeImage.createFromPath(__dirname + '/build/icon.png');
 
@@ -105,7 +125,7 @@ async function createWindow() {
 }
 
 app.on('window-all-closed', () => {
-  kill(child.pid);
+  kill(jarProcesssPID);
   app.quit()
 })
 
@@ -125,6 +145,7 @@ app.on('ready', async () => {
     }
   }
   createWindow()
+
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -140,4 +161,34 @@ if (isDevelopment) {
       app.quit()
     })
   }
-}
+}exp.get("/checkipfs", function (req, res) {
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+  });
+  const plat = process.platform
+  const cmd = plat == 'win32' ? 'tasklist | findstr ipfs.exe' : (plat == 'mac' ? 'ps -e | grep ipfs' : (plat == 'linux' ? 'ps -e | grep ipfs' : ''))
+  const proc = plat == 'win32' ? 'win' : (plat == 'darwin' ? 'mac' : (plat == 'linux' ? 'linux' : ''))
+  exec(cmd, (err, data) => {
+    if(data.includes('ipfs')){
+      res.status(200).send("TRUE")
+    }
+    else{
+      res.status(400).send("FALSE")
+    } 
+  })
+})
+exp.get("/reset",function(req,res) {
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+  });
+  kill(jarProcesssPID);
+  res.status(200).send("TRUE")
+
+  startJar();
+  
+
+})

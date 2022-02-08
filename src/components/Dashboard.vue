@@ -2,13 +2,16 @@
   <div class="text-gray-400 bg-gray-900 body-font leading-normal tracking-normal" id="main-body">
     <div class="flex flex-wrap">
 
-      <Sidebar />
+      
+          <Sidebar />
+      
+      
 
       <div class="w-full pl-0 lg:pl-64 min-h-screen">
 
         <Navbar />
 
-        <div class="p-6 mb-20">
+        <div class="flex-container p-1 mb-20 break-words ">
           <router-view />
         </div>
 
