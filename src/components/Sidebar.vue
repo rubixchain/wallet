@@ -334,11 +334,38 @@
                 <span class="ml-2 text-l tracking-wide truncate">Contacts</span>
               </a>
             </li>
+
+            
+              <button
+              
+              
+              @click="restartJar()"
+              class="
+                text-white
+                border-0
+                py-2
+                px-8
+                focus:outline-none
+                rounded
+                text-lg
+                position:absolute
+                left:0
+                bottom:0
+                
+              "
+              
+            >
+              Refresh
+              
+            </button>
+            
+
           </ul>
         </div>
       </div>
     </div>
   </div>
+   
 </template>
 
 <script>
@@ -352,6 +379,23 @@ export default {
     };
   },
   methods: {
+    
+     restartJar(){
+    console.log("here1")
+      axios
+        .get("http://localhost:2000/reset")
+        .then((response) => {
+          console.log("here2")
+          console.log(response);
+          
+        })
+        .catch(function (error) {
+          console.log("here3");
+          console.log(error);
+        });
+    }   
+
+  ,
     syncCall() {
       this.sync = "Syncing..";
       axios
@@ -385,6 +429,8 @@ export default {
           console.log(error);
         });
     },
+    
+
   },
   mounted: function () {
     window.setInterval(() => {
@@ -395,5 +441,6 @@ export default {
   beforeMount() {
     // this.dashboard()
   },
+ 
 };
 </script>
