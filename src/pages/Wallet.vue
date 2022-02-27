@@ -94,7 +94,7 @@
               <span class="px-3 title-font font-medium text-white">{{
                 accountData.credits.unspentCredits
               }}</span>
-              <div v-if="accountData.credits.unspentCredits > 16" class="px-6">
+              <div  class="px-6">
                 <button
                   @click="mine"
                   class="
@@ -163,7 +163,11 @@ export default {
     mine() {
       console.log("calling mine");
       axios
-        .get("http://localhost:1898/mine")
+        .get("http://localhost:1898/mine",{
+          params:{
+            type: 1
+          }
+        })
         .then((response) => {})
         .catch(function (error) {
           console.log(error);
