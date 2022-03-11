@@ -1,3 +1,4 @@
+
 <template>
   <!-- give the sidebar z-50 class so its higher than the navbar if you want to see the logo -->
   <!-- you will need to add a little "X" button next to the logo in order to close it though -->
@@ -334,11 +335,38 @@
                 <span class="ml-2 text-l tracking-wide truncate">Contacts</span>
               </a>
             </li>
+
+            
+              <button
+              
+              
+              @click="restartJar()"
+              class="
+                text-white
+                border-0
+                py-2
+                px-8
+                focus:outline-none
+                rounded
+                text-lg
+                position:absolute
+                left:0
+                bottom:0
+                
+              "
+              
+            >
+              Refresh
+              
+            </button>
+            
+
           </ul>
         </div>
       </div>
     </div>
   </div>
+   
 </template>
 
 <script>
@@ -352,6 +380,22 @@ export default {
     };
   },
   methods: {
+    
+     restartJar(){
+    console.log("here1")
+      axios
+        .get("http://localhost:2000/reset")
+        .then((response) => {
+          console.log("here2")
+          console.log(response);
+          
+        })
+        .catch(function (error) {
+          console.log("here3");
+          console.log(error);
+        });
+    }   
+  ,
     syncCall() {
       this.sync = "Syncing..";
       axios
@@ -364,7 +408,6 @@ export default {
           console.log(error);
         });
     },
-
     // getTags: function() {
     //   axios.get('http://498ce43301f8.ngrok.io/api/tags')
     //   .then((response) => {
@@ -374,7 +417,6 @@ export default {
     //     console.log(error);
     //   });
     // },
-
     dashboard() {
       axios
         .get("http://localhost:1898/getAccountInfo")
@@ -385,15 +427,16 @@ export default {
           console.log(error);
         });
     },
+    
   },
   mounted: function () {
     window.setInterval(() => {
       this.dashboard();
     }, 3000);
   },
-
   beforeMount() {
     // this.dashboard()
   },
+ 
 };
 </script>

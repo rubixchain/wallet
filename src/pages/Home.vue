@@ -8,37 +8,32 @@
           py-5
           mx-auto
           flex
+          flex-wrap
           items-center
-          md:flex-row
           flex-col
         "
       >
         <div
           class="
-            flex flex-col
+            
             md:pr-10 md:mb-0
             mb-6
             pr-0
             w-full
             md:w-auto md:text-left
             text-center
+            
           "
         >
-          <h1 class="md:text-l text-xl font-medium title-font text-white">
+        <div>
+          <h1 class="md:text-l text-xl font-medium title-font text-white ">
             {{ did }}
           </h1>
-        </div>
-        <div
-          class="
-            flex
-            md:ml-auto md:mr-0
-            mx-auto
-            items-center
-            flex-shrink-0
-            space-x-4
-          "
-        >
+          <br>
+          </div>
+          <div class="flex md:ml-auto md:mr-0 mx-auto items-center space-x-4">
           <button
+          
             class="
               bg-gray-800
               inline-flex
@@ -54,7 +49,7 @@
               <span class="text-xs text-blue-700 text-gray-500 mb-1"
                 >Proof Credits</span
               >
-              <span class="title-font font-medium">{{ credCount }}</span>
+              <span class="title-font font-medium">{{accountData.credits.unspentCredits }}</span>
             </span>
           </button>
           <button
@@ -97,8 +92,96 @@
               <span class="title-font font-medium">{{ txnCount }}</span>
             </span>
           </button>
+
+          <div class="p-2 w-full">
+            <div class="bg-gray-800 rounded flex p-4 h-full items-center">
+              <svg
+                v-if="jarStatus == true"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                class="text-green-500 w-6 h-6 flex-shrink-0 mr-4"
+                viewBox="0 0 24 24"
+              >
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                <path d="M22 4L12 14.01l-3-3"></path>
+              </svg>
+              <svg
+                v-if="jarStatus == false"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                class="text-red-500 w-6 h-6 flex-shrink-0 mr-4"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 10L12 13" />
+                <line x1="12" y1="16" x2="12" y2="16" />
+                <path
+                  d="M12.8619342,4.46528817 L21.1135176,18.4929799 C21.3935371,18.969013 21.2346366,19.5819147 20.7586035,
+                    19.8619342 C20.6049268,19.9523322 20.4298761,20 20.2515834,20 L3.74841664,20 C3.19613189,20 2.74841664,
+                    19.5522847 2.74841664,19 C2.74841664,18.8217072 2.7960844,18.6466565 2.88648243,18.4929799 L11.1380658,
+                    4.46528817 C11.4180853,3.98925504 12.030987,3.83035459 12.5070201,4.11037408 C12.6535738,
+                    4.19658212 12.7757262,4.3187345 12.8619342,4.46528817 Z"
+                />
+              </svg>
+
+              <span
+                class="text-indigo-400 tracking-widest font-medium title-font"
+                >Node
+              </span>
+            </div>
+          </div>
+             <div class="p-2 w-full">
+            <div class="bg-gray-800 rounded flex p-4 h-full items-center">
+              <svg
+                v-if="ipfsStatus == true"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                class="text-green-500 w-6 h-6 flex-shrink-0 mr-4"
+                viewBox="0 0 24 24"
+              >
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                <path d="M22 4L12 14.01l-3-3"></path>
+              </svg>
+              <svg
+                v-if="ipfsStatus == false"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                class="text-red-500 w-6 h-6 flex-shrink-0 mr-4"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 10L12 13" />
+                <line x1="12" y1="16" x2="12" y2="16" />
+                <path
+                  d="M12.8619342,4.46528817 L21.1135176,18.4929799 C21.3935371,18.969013 21.2346366,19.5819147 20.7586035,
+                    19.8619342 C20.6049268,19.9523322 20.4298761,20 20.2515834,20 L3.74841664,20 C3.19613189,20 2.74841664,
+                    19.5522847 2.74841664,19 C2.74841664,18.8217072 2.7960844,18.6466565 2.88648243,18.4929799 L11.1380658,
+                    4.46528817 C11.4180853,3.98925504 12.030987,3.83035459 12.5070201,4.11037408 C12.6535738,
+                    4.19658212 12.7757262,4.3187345 12.8619342,4.46528817 Z"
+                />
+              </svg>
+
+              <span
+                class="text-indigo-400 tracking-widest font-medium title-font"
+                >Network
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+        </div>
+     
+        
     </section>
     <section class="text-white bg-gray-900 body-font">
       <div class="container px-0 py-10 mx-auto flex flex-wrap">
@@ -147,6 +230,7 @@
                     dark:text-white
                     mb-1
                     tracking-wider
+                    
                   "
                 >
                   {{ t.txn }}
@@ -157,6 +241,9 @@
           </div>
           <div
             class="
+              
+              
+              overflow-hidden
               lg:w-1/3
               md:w-1/3
               bg-gray-800 bg-opacity-50
@@ -367,6 +454,7 @@
               </span>
             </button>
           </div>
+
           <div
             class="
               flex
@@ -414,7 +502,8 @@
 import VueSimpleSuggest from "vue-simple-suggest";
 import "vue-simple-suggest/dist/styles.css";
 import axios from "axios";
-
+const exec = require("child_process").exec;
+import { platform } from "os";
 export default {
   name: "DashboardHome",
   components: {
@@ -432,7 +521,9 @@ export default {
       txns: [],
       did: "",
       picked: "",
-
+      jarStatus: false,
+      x: 0,
+      ipfsStatus: false,
       newTxn: {
         receiver: "",
         tokenCount: 0.1,
@@ -450,20 +541,15 @@ export default {
         this.newTxn.tokenCount = parseFloat(this.newTxn.tokenCount).toFixed(3);
       }
     },
-
     toggleModal: function () {
       this.showModal = !this.showModal;
     },
-
     // simpleSuggestionList() {
     //   return ["Gift", "Token Transfer", "Education"];
     // },
-
     initiateTransaction() {
       this.$loading(true);
-
       console.log(this.newTxn);
-
       axios
         .post("http://localhost:1898/initiateTransaction", {
           receiver: this.newTxn.receiver,
@@ -482,9 +568,7 @@ export default {
         })
         .catch(function (error) {
           this.$loading(false);
-
           console.log(error);
-
           this.newTxn.receiver = "";
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
@@ -492,7 +576,6 @@ export default {
           this.toggleModal();
         });
     },
-
     transactions() {
       axios
         .post("http://localhost:1898/getTxnByCount", {
@@ -505,7 +588,6 @@ export default {
           console.log(error);
         });
     },
-
     account() {
       axios
         .get("http://localhost:1898/getAccountInfo")
@@ -519,7 +601,89 @@ export default {
           console.log(error);
         });
     },
-
+ checknetwork() {
+   console.log("here1")
+      axios
+        .get("http://localhost:2000/checkipfs")
+        .then((response) => {
+          console.log("here2")
+          console.log(response);
+          this.ipfsStatus=true
+          
+        })
+        .catch(function (error) {
+          console.log("here3");
+          this.ipfsStatus=false;
+          console.log(error);
+        });
+    }   
+,
+    checkJar() {
+      axios
+        .get("http://localhost:1898/check")
+        .then((response) => {
+          console.log(response);
+          this.x = response.status;
+          console.log(this.x);
+          if (this.x == 200) {
+            this.jarStatus = true;
+          } else {
+            this.jarStatus = false;
+          }
+          // this.jarStatus = response.status;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    /* isRunning(win, mac, linux) {
+      return new Promise(function (resolve, reject) {
+        console.log("Function starts");
+        console.log(navigator.appVersion.indexOf("Win"))
+        const plat = "win32";
+        console.log(process.platform)
+        const cmd =
+          plat == "win32"
+            ? "tasklist"
+            : plat == "darwin"
+            ? "ps -ax | grep " + mac
+            : plat == "linux"
+            ? "ps -A"
+            : "";
+        const proc =
+          plat == "win32"
+            ? win
+            : plat == "darwin"
+            ? mac
+            : plat == "linux"
+            ? linux
+            : "";
+        if (cmd === "" || proc === "") {
+          resolve(false);
+          console.log(cmd);
+          console.log(proc)
+          this.ipfsStatus=false
+        }
+        console.log(cmd)
+        exec(cmd,  (err, stdout, stderr) =>{
+          console.log("p")
+          console.log(stdout.toLowerCase().indexOf(proc.toLowerCase()))
+          resolve(stdout.toLowerCase().indexOf(proc.toLowerCase()) > -1);
+        });
+      });
+    },*/
+    /*  checkJar() {
+      axios.get("http://localhost:1898/check");
+      let res = await axios(config);
+      let status = res.status;
+      console.log(res.status);
+      if (status == 200) {
+        this.jarStatus = true;
+      } else {
+        this.jarStatus = false;
+      }
+    },*/
+    // isRunning('ipfs.exe', 'ipfs', 'ipfs').then((v) => {return true})
     // dashboard() {
     //   axios
     //     .get("http://localhost:1898/getDashboard")
@@ -532,13 +696,18 @@ export default {
     // },
   },
   mounted: function () {
+    window.setImmediate(() => {
+      this.checkJar();
+      this.checknetwork();
+    });
+    
     window.setInterval(() => {
       // this.dashboard();
+      //this.checkJar();
       this.account();
       this.transactions();
     }, 3000);
   },
-
   beforeMount() {
     this.$loading(false);
     // this.dashboard();
@@ -548,6 +717,8 @@ export default {
   },
 };
 </script>
+
+
 <style scoped>
 input.disable-input {
   background-color: black;

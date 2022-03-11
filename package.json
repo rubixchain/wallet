@@ -1,6 +1,6 @@
 {
   "name": "wallet",
-  "version": "1.8.2",
+  "version": "1.8.5",
   "description": "wallet app for rubix users",
   "author": "Rubix Maintainers <maintainers@rubix.network>",
   "private": true,
@@ -23,6 +23,7 @@
     "axios": "^0.21.2",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
+    "cors": "^2.8.5",
     "easy-circular-progress": "^1.0.4",
     "electron-root-path": "^1.0.16",
     "fix-path": "^3.0.0",
