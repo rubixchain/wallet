@@ -49,7 +49,7 @@
               <span class="text-xs text-blue-700 text-gray-500 mb-1"
                 >Proof Credits</span
               >
-              <span class="title-font font-medium">{{accountData.credits.unspentCredits }}</span>
+              <span class="title-font font-medium">{{ credCount }}</span>
             </span>
           </button>
           <button
@@ -331,6 +331,36 @@
               />
             </div>
             <div class="relative mb-4">
+              <!-- <label for="full-name" class="leading-7 text-l text-white">{{picked}}</label> -->
+              <label for="Pvt-Key-Pass" class="leading-7 text-l text-white"
+                >Private Key Password (Sender)</label
+              >
+              <input
+                v-model="newTxn.pvtKeyPass"
+                spellcheck="false"
+                type="password"
+                rows="1"
+                class="
+                  w-full
+                  bg-white bg-gray-600 bg-opacity-20
+                  focus:bg-transparent focus:ring-2 focus:ring-indigo-900
+                  rounded
+                  border border-gray-600
+                  focus:border-red-500
+                  border-indigo-500
+                  text-base
+                  outline-none
+                  text-gray-100
+                  py-1
+                  px-3
+                  leading-8
+                  transition-colors
+                  duration-200
+                  ease-in-out
+                "
+              />
+            </div>
+            <div class="relative mb-4">
               <label for="email" class="leading-7 text-l text-white"
                 >Comments</label
               >
@@ -347,6 +377,7 @@
               >
               </vue-simple-suggest>
             </div>
+            
             <button
               :disabled="dashboardData.balance == 0"
               @click="initiateTransaction()"
@@ -529,6 +560,7 @@ export default {
         tokenCount: 0.1,
         comment: "",
         type: 1,
+        pvtKeyPass:"",
       },
     };
   },
@@ -556,6 +588,7 @@ export default {
           tokenCount: this.newTxn.tokenCount,
           comment: this.newTxn.comment,
           type: this.newTxn.type,
+          pvtKeyPass: this.newTxn.pvtKeyPass,
           // "Quorum": this.quorum
         })
         .then((response) => {
@@ -564,6 +597,7 @@ export default {
           this.transactionResponse = response.data.data.response.message;
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
+          this.pvtKeyPass="";
           this.toggleModal();
         })
         .catch(function (error) {
@@ -572,6 +606,7 @@ export default {
           this.newTxn.receiver = "";
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
+          this.pvtKeyPass="";
           this.transactionResponse = "Error, Try again!";
           this.toggleModal();
         });
@@ -593,7 +628,7 @@ export default {
         .get("http://localhost:1898/getAccountInfo")
         .then((response) => {
           this.balance = response.data.data.response.balance;
-          this.credCount = response.data.data.response.credits.spentCredits;
+          this.credCount = response.data.data.response.credits.unspentCredits;
           this.txnCount = response.data.data.response.totalTxn;
           this.did = response.data.data.response.did;
         })
