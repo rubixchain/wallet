@@ -11,7 +11,7 @@ module.exports = {
                   to: './resources/app.asar.unpacked/rubix.jar',
                   filter: ["**/*"]
               },
-              productName: "Rubix Wallet - Eismeer",
+              productName: "Rubix Wallet - Yamato",
               appId: 'rubix.network',
               win: {
                   "target": [

@@ -31,7 +31,7 @@
           md:mb-0
         "
       >
-        <img width="100" height="100" src="../assets/logo.png" alt="Rubix" />
+        <img height="100" src="../assets/logo.png" alt="Rubix" />
         <span class="ml-3 text-xl xl:block lg:hidden">Rubix</span>
       </a>
       <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
