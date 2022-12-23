@@ -13,6 +13,123 @@
     "
     style="background: #edf2f7"
   >
+  <div
+      v-if="showModal"
+      class="
+        overflow-x-hidden overflow-y-auto
+        fixed
+        inset-0
+        z-50
+        outline-none
+        focus:outline-none
+        justify-center
+        items-center
+        flex
+      "
+    >
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div
+          class="
+            border-0
+            rounded-lg
+            shadow-lg
+            relative
+            flex flex-col
+            w-full
+            bg-white
+            outline-none
+            focus:outline-none
+          "
+        >
+          <!--header-->
+          <div
+            class="
+              flex
+              items-start
+              justify-between
+              p-5
+              border-b border-solid border-blueGray-200
+              rounded-t
+            "
+          >
+            <h3 class="text-3xl font-semibold">
+              {{ transactionResponse }}
+            </h3>
+            <button
+              class="
+                p-1
+                ml-auto
+                bg-transparent
+                border-0
+                text-black
+                opacity-5
+                float-right
+                text-3xl
+                leading-none
+                font-semibold
+                outline-none
+                focus:outline-none
+              "
+              v-on:click="toggleModal()"
+            >
+              <span
+                class="
+                  bg-transparent
+                  text-black
+                  opacity-5
+                  h-6
+                  w-6
+                  text-2xl
+                  block
+                  outline-none
+                  focus:outline-none
+                "
+              >
+                ×
+              </span>
+            </button>
+          </div>
+          <div
+            class="
+              flex
+              items-center
+              justify-end
+              p-6
+              border-t border-solid border-blueGray-200
+              rounded-b
+            "
+          >
+            <button
+              class="
+                text-red-500
+                bg-transparent
+                border border-solid border-red-500
+                hover:bg-red-500 hover:text-white
+                active:bg-red-600
+                font-bold
+                uppercase
+                text-sm
+                px-6
+                py-3
+                rounded
+                outline-none
+                focus:outline-none
+                mr-1
+                mb-1
+                ease-linear
+                transition-all
+                duration-150
+              "
+              type="button"
+              v-on:click="toggleModal()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       class="
         min-h-screen
@@ -79,7 +196,48 @@
                 >
                   {{ sync }}
                 </button>
+                
               </a>
+              
+            </li>
+            <li>
+              <a
+                class="
+                  duration-200
+                  ease-in-out
+                  relative
+                  flex flex-row
+                  items-center
+                  h-11
+                  focus:outline-none
+                  hover:bg-grey-50
+                  text-gray-600 text-black
+                  hover:text-white
+                  border-l-4 border-transparent
+                  hover:border-red-500
+                  border-indigo-500
+                  pr-6
+                "
+              >
+                <span class="inline-flex justify-center items-center ml-4">
+                </span>
+                <button
+                @click="$router.push({ name: 'StartQuorum' })"
+                  class="
+                    bg-gray-800
+                    border-0
+                    py-2
+                    px-8
+                    focus:outline-none
+                    hover:bg-gray-700
+                    rounded
+                  "
+                >
+                   Start Quorum 
+                </button>
+                
+              </a>
+              
             </li>
             <li>
               <a
@@ -297,6 +455,47 @@
             </li>
             <li>
               <a
+                @click="$router.push({ name: 'Settings' })"
+                class="
+                  duration-200
+                  ease-in-out
+                  relative
+                  flex flex-row
+                  items-center
+                  h-11
+                  focus:outline-none
+                  hover:bg-grey-50
+                  text-gray-600 text-black
+                  hover:text-white
+                  border-l-4 border-transparent
+                  hover:border-red-500
+                  border-indigo-500
+                  pr-6
+                "
+              >
+                <span class="inline-flex justify-center items-center ml-4">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                    ></path>
+                  </svg>
+                </span>
+                <span class="ml-2 text-l tracking-wide truncate"
+                  >Settings</span
+                >
+              </a>
+            </li>
+            <li>
+              <a
                 @click="$router.push({ name: 'Contacts' })"
                 class="
                   duration-200
@@ -341,6 +540,7 @@
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
 export default {
@@ -364,16 +564,12 @@ export default {
           console.log(error);
         });
     },
-
-    // getTags: function() {
-    //   axios.get('http://498ce43301f8.ngrok.io/api/tags')
-    //   .then((response) => {
-    //     this.tags = response.data.tags
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    // },
+    toggleModal: function () {
+      this.showModal = !this.showModal;
+    },
+    testLog(){
+      console.log("test");
+    },
 
     dashboard() {
       axios

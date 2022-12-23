@@ -245,6 +245,18 @@
             </div>
             <div class="relative mb-4">
               <label for="email" class="leading-7 text-l text-white"
+                >Private Key Password</label
+              >
+              <vue-simple-suggest
+                type="password"
+                v-model="newTxn.pvtKeyPass"
+                :list="simpleSuggestionList"
+                :filter-by-query="false"
+              >
+              </vue-simple-suggest>
+            </div>
+            <div class="relative mb-4">
+              <label for="email" class="leading-7 text-l text-white"
                 >Comments</label
               >
               <!-- <select v-model="newTxn.comment" class="w-full bg-white bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-red-500 border-indigo-500 text-base outline-none text-gray-900 text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -289,7 +301,7 @@
           </div>
         </div>
       </div>
-    </section>
+  </section>
     <div
       v-if="showModal"
       class="
@@ -438,6 +450,7 @@ export default {
         tokenCount: 0.1,
         comment: "",
         type: 1,
+        pvtKeyPass: "",
       },
     };
   },
@@ -470,6 +483,7 @@ export default {
           tokenCount: this.newTxn.tokenCount,
           comment: this.newTxn.comment,
           type: this.newTxn.type,
+          pvtKeyPass: this.newTxn.pvtKeyPass,
           // "Quorum": this.quorum
         })
         .then((response) => {
@@ -478,6 +492,7 @@ export default {
           this.transactionResponse = response.data.data.response.message;
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
+          this.newTxn.pvtKeyPass = "";
           this.toggleModal();
         })
         .catch(function (error) {
@@ -488,6 +503,7 @@ export default {
           this.newTxn.receiver = "";
           this.newTxn.comment = "";
           this.newTxn.tokenCount = 1;
+          this.newTxn.pvtKeyPass = "";
           this.transactionResponse = "Error, Try again!";
           this.toggleModal();
         });
