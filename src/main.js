@@ -12,6 +12,8 @@ import Explorer from '@/pages/Explorer'
 import Bootstraps from '@/pages/Bootstraps'
 import Transactions from '@/pages/Transactions'
 import Wallet from '@/pages/Wallet'
+import Settings from '@/pages/Settings'
+import StartQuorum from '@/pages/StartQuorum'
 
 import store from './store'
 
@@ -40,6 +42,8 @@ const routes = [
       { path: 'explorer', name: 'Explorer', component: Explorer },
       { path: 'bootstraps', name: 'Bootstraps', component: Bootstraps },
       { path: 'transactions', name: 'Transactions', component: Transactions },
+      { path: 'settings', name: 'Settings', component: Settings },
+      { path: 'start-quorum', name: 'StartQuorum', component: StartQuorum },
       { path: 'my-wallet', name: 'Wallet', component: Wallet },
     ]
   },
